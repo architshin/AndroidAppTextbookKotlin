@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第4章
+イベントとリスナサンプル
+
+@author Shinzo SAITO
+
+res/values/string.xmlファイル
+-->
+<resources>
+	<string name="app_name">イベントとリスナサンプル</string>
+	<string name="tv_name">お名前を入力してください。</string>
+	<string name="bt_click">表示</string>
+	<string name="bt_clear">クリア</string>
+</resources>

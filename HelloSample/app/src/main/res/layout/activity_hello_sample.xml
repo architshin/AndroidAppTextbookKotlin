@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第4章
+イベントとリスナサンプル
+
+@author Shinzo SAITO
+
+ファイル名=activity_view_sample.xml
+-->
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/tv_name"/>
+
+	<EditText
+		android:id="@+id/etName"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:inputType="text"/>
+
+	<Button
+		android:id="@+id/btClick"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/bt_click"/>
+
+	<Button
+		android:id="@+id/btClear"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/bt_clear"/>
+
+	<TextView
+		android:id="@+id/tvOutput"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="25dp"
+		android:text=""
+		android:textSize="25sp"/>
+</LinearLayout>
