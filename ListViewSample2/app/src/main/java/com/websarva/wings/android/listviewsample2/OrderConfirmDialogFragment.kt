@@ -18,32 +18,27 @@ import android.widget.Toast
  */
 class OrderConfirmDialogFragment : DialogFragment() {
 	override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-		//activityがnullじゃなかったらブロック内を実行。
-		val dialog: AlertDialog? = activity?.let {
-			//ダイアログビルダを生成。
-			val builder = AlertDialog.Builder(it)
-			//ダイアログのタイトルを設定。
-			builder.setTitle(R.string.dialog_title)
-			//ダイアログのメッセージを設定。
-			builder.setMessage(R.string.dialog_msg)
-			//Positive Buttonを設定。
-			builder.setPositiveButton(R.string.dialog_btn_ok, DialogButtonClickListener())
-			//Negative Buttonを設定。
-			builder.setNegativeButton(R.string.dialog_btn_ng, DialogButtonClickListener())
-			//Neutral Buttonを設定。
-			builder.setNeutralButton(R.string.dialog_btn_nu, DialogButtonClickListener())
-			//ダイアログオブジェクトを生成し、リターン。
-			builder.create()
-		}
-		//生成したダイアログオブジェクトをリターン。nullの場合は例外発生。
-		return dialog ?: throw IllegalStateException("Activityがnullです")
+		//ダイアログビルダを生成。
+		val builder = AlertDialog.Builder(activity)
+		//ダイアログのタイトルを設定。
+		builder.setTitle(R.string.dialog_title)
+		//ダイアログのメッセージを設定。
+		builder.setMessage(R.string.dialog_msg)
+		//Positive Buttonを設定。
+		builder.setPositiveButton(R.string.dialog_btn_ok, DialogButtonClickListener())
+		//Negative Buttonを設定。
+		builder.setNegativeButton(R.string.dialog_btn_ng, DialogButtonClickListener())
+		//Neutral Buttonを設定。
+		builder.setNeutralButton(R.string.dialog_btn_nu, DialogButtonClickListener())
+		//ダイアログオブジェクトを生成し、リターン。
+		val dialog = builder.create()
+		return dialog
 	}
 
 	/**
 	 * ダイアログのアクションボタンがタップされた時の処理が記述されたメンバクラス。
 	 */
 	private inner class DialogButtonClickListener : DialogInterface.OnClickListener {
-
 		override fun onClick(dialog: DialogInterface, which: Int) {
 			//トーストメッセージ用文字列変数を用意。
 			var msg = ""

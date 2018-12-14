@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import java.util.ArrayList
 
 /**
  * 『Androidアプリ開発の教科書』
@@ -24,20 +23,8 @@ class ListViewSample2Activity : AppCompatActivity() {
 
 		//ListViewオブジェクトを取得。
 		val lvMenu = findViewById<ListView>(R.id.lvMenu)
-		//リストビューに表示するリストデータ用Listオブジェクトを作成。
-		val menuList = ArrayList<String>()
-		//リストデータの登録。
-		menuList.add("から揚げ定食")
-		menuList.add("ハンバーグ定食")
-		menuList.add("生姜焼き定食")
-		menuList.add("ステーキ定食")
-		menuList.add("野菜炒め定食")
-		menuList.add("とんかつ定食")
-		menuList.add("ミンチかつ定食")
-		menuList.add("チキンカツ定食")
-		menuList.add("コロッケ定食")
-		menuList.add("焼き魚定食")
-		menuList.add("焼肉定食")
+		//リストビューに表示するリストデータを作成。
+		var menuList = mutableListOf("から揚げ定食", "ハンバーグ定食", "生姜焼き定食", "ステーキ定食", "野菜炒め定食", "とんかつ定食", "ミンチかつ定食", "チキンカツ定食", "コロッケ定食", "焼き魚定食", "焼肉定食")
 		//アダプタオブジェクトを生成。
 		val adapter = ArrayAdapter(applicationContext, android.R.layout.simple_list_item_1, menuList)
 		//リストビューにアダプタオブジェクトを設定。
