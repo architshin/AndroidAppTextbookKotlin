@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第7章
+ライフサイクルサンプル
+
+@author Shinzo SAITO
+
+res/values/string.xmlファイル
+-->
+<resources>
+	<string name="app_name">ライフサイクルサンプル</string>
+	<string name="bt_next">次の画面を表示</string>
+	<string name="bt_previous">前の画面を表示</string>
+</resources>
