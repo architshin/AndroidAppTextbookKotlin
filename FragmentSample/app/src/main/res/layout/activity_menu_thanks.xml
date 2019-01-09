@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第9章
+フラグメントサンプル
+
+標準サイズ画面用注文完了画面定義ファイル。
+
+@author Shinzo SAITO
+
+ファイル名=layout/activity_menu_thanks.xml
+-->
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<fragment
+		android:id="@+id/fragmentMenuThanks"
+		android:name="com.websarva.wings.android.fragmentsample.MenuThanksFragment"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+</FrameLayout>
