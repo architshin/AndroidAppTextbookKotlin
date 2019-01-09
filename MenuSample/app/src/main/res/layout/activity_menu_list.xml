@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第8章
+メニューサンプル
+
+メニューリスト画面定義ファイル。
+
+@author Shinzo SAITO
+
+ファイル名=activity_menu_list.xml
+-->
+<ListView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/lvMenu"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"/>
