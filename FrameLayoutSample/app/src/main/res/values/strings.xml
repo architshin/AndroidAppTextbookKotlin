@@ -1,0 +1,5 @@
+<resources>
+	<string name="app_name">FrameLayout</string>
+	<string name="tv_bg">これが背景です</string>
+	<string name="tv_ft">前面</string>
+</resources>
