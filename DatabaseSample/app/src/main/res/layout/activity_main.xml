@@ -6,7 +6,7 @@
 
 @author Shinzo SAITO
 
-ファイル名=activity_cocktail_memo.xml
+ファイル名=activity_main.xml
 -->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
