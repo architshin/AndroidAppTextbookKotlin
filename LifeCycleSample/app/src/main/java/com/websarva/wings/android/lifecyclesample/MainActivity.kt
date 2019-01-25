@@ -15,11 +15,11 @@ import android.view.View
  *
  * @author Shinzo SAITO
  */
-class LifeCycleMainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		Log.i("LifeCycleSample", "Main onCreate() called.")
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_life_cycle_main)
+		setContentView(R.layout.activity_main)
 	}
 
 	public override fun onStart() {
@@ -57,7 +57,7 @@ class LifeCycleMainActivity : AppCompatActivity() {
 	 */
 	fun onButtonClick(view: View) {
 		//インテントオブジェクトを用意。
-		val intent = Intent(applicationContext, LifeCycleSubActivity::class.java)
+		val intent = Intent(applicationContext, SubActivity::class.java)
 		//アクティビティを起動。
 		startActivity(intent)
 	}

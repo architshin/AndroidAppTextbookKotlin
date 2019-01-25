@@ -14,11 +14,11 @@ import android.view.View
  *
  * @author Shinzo SAITO
  */
-class LifeCycleSubActivity : AppCompatActivity() {
+class SubActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		Log.i("LifeCycleSample", "Sub onCreate() called.")
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_life_cycle_sub)
+		setContentView(R.layout.activity_sub)
 	}
 
 	public override fun onStart() {

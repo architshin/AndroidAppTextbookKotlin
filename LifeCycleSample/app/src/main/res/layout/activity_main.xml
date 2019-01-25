@@ -4,11 +4,11 @@
 第7章
 ライフサイクルサンプル
 
-第2画面定義ファイル。
+第1画面定義ファイル。
 
 @author Shinzo SAITO
 
-ファイル名=activity_life_cycle_sub.xml
+ファイル名=activity_main.xml
 -->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,9 +17,9 @@
 	android:orientation="vertical">
 
 	<Button
-		android:id="@+id/btPrevious"
+		android:id="@+id/btNext"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:onClick="onButtonClick"
-		android:text="@string/bt_previous"/>
+		android:text="@string/bt_next"/>
 </LinearLayout>
