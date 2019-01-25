@@ -16,10 +16,10 @@ import android.widget.TextView
  *
  * @author Shinzo SAITO
  */
-class HelloSampleActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_hello_sample)
+		setContentView(R.layout.activity_main)
 
 		//表示ボタンであるButtonオブジェクトを取得。
 		val btClick = findViewById<Button>(R.id.btClick)
