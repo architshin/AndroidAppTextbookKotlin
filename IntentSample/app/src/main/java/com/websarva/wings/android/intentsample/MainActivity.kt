@@ -1,8 +1,8 @@
 package com.websarva.wings.android.intentsample
 
 import android.content.Intent
-import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
@@ -17,10 +17,10 @@ import android.widget.SimpleAdapter
  *
  * @author Shinzo SAITO
  */
-class MenuListActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_menu_list)
+		setContentView(R.layout.activity_main)
 
 		//画面部品ListViewを取得
 		val lvMenu = findViewById<ListView>(R.id.lvMenu)
