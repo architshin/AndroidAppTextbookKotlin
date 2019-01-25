@@ -8,7 +8,7 @@
 
 @author Shinzo SAITO
 
-ファイル名=activity_menu_list.xml
+ファイル名=activity_main.xml
 -->
 <ListView
 	xmlns:android="http://schemas.android.com/apk/res/android"

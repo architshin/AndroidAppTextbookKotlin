@@ -21,7 +21,7 @@ import android.widget.Toast
  *
  * @author Shinzo SAITO
  */
-class MenuListActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 	/**
 	 * リストビューに表示するリストデータ。
 	 */
@@ -37,7 +37,7 @@ class MenuListActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_menu_list)
+		setContentView(R.layout.activity_main)
 
 		//SimpleAdapterで使用する定食メニューListオブジェクトをprivateメソッドを利用して用意し、フィールドに格納。
 		_menuList = createTeishokuList()
