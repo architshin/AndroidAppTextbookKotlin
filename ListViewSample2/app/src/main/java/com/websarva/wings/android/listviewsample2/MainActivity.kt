@@ -16,10 +16,10 @@ import android.widget.ListView
  *
  * @author Shinzo SAITO
  */
-class ListViewSample2Activity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_list_view_sample2)
+		setContentView(R.layout.activity_main)
 
 		//ListViewオブジェクトを取得。
 		val lvMenu = findViewById<ListView>(R.id.lvMenu)
