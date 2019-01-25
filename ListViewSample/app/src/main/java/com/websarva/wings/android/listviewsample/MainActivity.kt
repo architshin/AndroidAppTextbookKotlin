@@ -16,10 +16,10 @@ import android.widget.Toast
  *
  * @author Shinzo SAITO
  */
-class ListViewSampleActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_list_view_sample)
+		setContentView(R.layout.activity_main)
 
 		//ListViewオブジェクトを取得。
 		val lvMenu = findViewById<ListView>(R.id.lvMenu)
