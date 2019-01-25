@@ -7,8 +7,6 @@ import android.widget.ImageView
 import android.widget.ListView
 import android.widget.SimpleAdapter
 import android.widget.TextView
-import java.util.ArrayList
-import java.util.HashMap
 
 /**
  * 『Androidアプリ開発の教科書』
@@ -19,10 +17,10 @@ import java.util.HashMap
  *
  * @author Shinzo SAITO
  */
-class NameListActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_name_list)
+		setContentView(R.layout.activity_main)
 
 		//SimpleAdapterで使用する名前Listオブジェクトをprivateメソッドを利用して用意。
 		val nameList = createNameList()
