@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第15章
+カメラアプリ連携サンプル
+
+画面定義ファイル。
+
+@author Shinzo SAITO
+
+ファイル名=activity_use_camera.xml
+-->
+<ImageView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/ivCamera"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:layout_gravity="center"
+	android:onClick="onCameraImageClick"
+	android:scaleType="center"
+	app:srcCompat="@android:drawable/ic_menu_camera"/>
