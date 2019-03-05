@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第16章
+ツールバーサンプル
+
+画面定義ファイル。
+
+@author Shinzo SAITO
+
+ファイル名=activity_main.xml
+-->
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<android.support.v7.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="?attr/actionBarSize"
+		android:background="@color/colorPrimary"
+		android:elevation="10dp"/>
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/tv_article"/>
+	</ScrollView>
+</LinearLayout>
