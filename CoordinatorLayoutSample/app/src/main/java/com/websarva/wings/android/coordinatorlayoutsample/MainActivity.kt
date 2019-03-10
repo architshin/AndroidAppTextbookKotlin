@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar
 
 /**
  * 『Androidアプリ開発の教科書』
- * 第15章
+ * 第16章
  * スロール連動サンプル
  *
  * アクティビティクラス。
