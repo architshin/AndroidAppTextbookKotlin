@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第17章
+スロール連動しないListViewサンプル
+
+@author Shinzo SAITO
+
+res/values/string.xmlファイル
+-->
+<resources>
+	<string name="app_name">連動しないリストビューサンプル</string>
+	<string name="toolbar_title">Material!</string>
+	<string-array name="lv_menu">
+		<item>から揚げ定食</item>
+		<item>ハンバーグ定食</item>
+		<item>生姜焼き定食</item>
+		<item>ステーキ定食</item>
+		<item>野菜炒め定食</item>
+		<item>とんかつ定食</item>
+		<item>ミンチかつ定食</item>
+		<item>チキンカツ定食</item>
+		<item>コロッケ定食</item>
+		<item>焼き魚定食</item>
+		<item>焼肉定食</item>
+	</string-array>
+</resources>
