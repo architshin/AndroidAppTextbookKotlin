@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第17章
+リサイクラービューサンプル
+
+@author Shinzo SAITO
+
+res/values/string.xmlファイル
+-->
+<resources>
+	<string name="app_name">リサイクラービューサンプル</string>
+	<string name="toolbar_title">Recycle!</string>
+	<string name="tv_menu_unit">円</string>
+	<string name="msg_header">ご注文の定食: </string>
+</resources>
