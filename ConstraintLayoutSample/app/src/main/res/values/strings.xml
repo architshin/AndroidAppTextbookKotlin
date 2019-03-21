@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第6章
+ConstraintLayoutサンプル
+
+@author Shinzo SAITO
+
+res/values/string.xmlファイル
+-->
+<resources>
+	<string name="app_name">ConstraintLayoutサンプル</string>
+	<string name="tv_title">必要な情報を入力してください。</string>
+	<string name="tv_name">名前</string>
+	<string name="tv_mail">メールアドレス</string>
+	<string name="tv_comment">質問内容</string>
+	<string name="bt_confirm">確認</string>
+	<string name="bt_send">送信</string>
+	<string name="bt_clear">クリア</string>
+</resources>
