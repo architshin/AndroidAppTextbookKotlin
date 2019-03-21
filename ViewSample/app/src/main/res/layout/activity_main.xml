@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+『Androidアプリ開発の教科書』
+第3章
+画面部品サンプル
+
+@author Shinzo SAITO
+
+ファイル名=activity_main.xml
+-->
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#A1A9BA"
+	android:orientation="vertical">
+
+	<TextView
+		android:id="@+id/tvLabelInput"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="10dp"
+		android:layout_marginTop="5dp"
+		android:background="#ffffff"
+		android:text="@string/tv_msg"
+		android:textSize="25sp"/>
+
+	<EditText
+		android:id="@+id/etInput"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="25dp"
+		android:layout_marginTop="5dp"
+		android:background="#ffffff"
+		android:inputType="text"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#df7401"
+		android:orientation="horizontal">
+
+		<CheckBox
+			android:id="@+id/cbDrink"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="25dp"
+			android:background="#ffffff"
+			android:text="@string/cb_drink"/>
+
+		<CheckBox
+			android:id="@+id/cbFood"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="#ffffff"
+			android:text="@string/cb_food"/>
+	</LinearLayout>
+
+	<RadioGroup
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="10dp"
+		android:layout_marginTop="10dp"
+		android:background="#df7401"
+		android:orientation="horizontal"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp">
+
+		<RadioButton
+			android:id="@+id/rbMale"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="25dp"
+			android:layout_marginRight="25dp"
+			android:background="#ffffff"
+			android:text="@string/rb_male"/>
+
+		<RadioButton
+			android:id="@+id/rbFemale"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="#ffffff"
+			android:text="@string/rb_female"/>
+	</RadioGroup>
+
+	<Spinner
+		android:id="@+id/spCurryList"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="#ffffff"
+		android:entries="@array/sp_currylist"
+		android:paddingBottom="5dp"
+		android:paddingTop="5dp"/>
+
+	<Button
+		android:id="@+id/btSave"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/bt_save"/>
+
+	<ListView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="#ffffff"
+		android:entries="@array/lv_cocktaillist"/>
+</LinearLayout>
