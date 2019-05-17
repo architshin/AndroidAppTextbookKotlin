@@ -90,6 +90,7 @@
 		android:layout_marginStart="8dp"
 		android:layout_marginTop="8dp"
 		android:ems="10"
+		android:gravity="start|top"
 		android:inputType="textMultiLine"
 		app:layout_constraintBottom_toTopOf="@+id/btSend"
 		app:layout_constraintEnd_toEndOf="parent"
