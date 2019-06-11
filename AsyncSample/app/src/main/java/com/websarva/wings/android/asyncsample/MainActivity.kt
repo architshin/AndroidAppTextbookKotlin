@@ -3,6 +3,7 @@ package com.websarva.wings.android.asyncsample
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
@@ -98,8 +99,18 @@ class MainActivity : AppCompatActivity() {
 			val con = url.openConnection() as HttpURLConnection
 			//http接続メソッドを設定。
 			con.requestMethod = "GET"
+
+			//以下タイムアウトを設定する場合のコード。
+//			con.connectTimeout = 1000
+//			con.readTimeout = 1000
+
 			//接続。
 			con.connect()
+
+			//以下HTTPステータスコードを取得する場合のコード。
+//			val resCode = con.responseCode
+//			Log.i("AsyncSample", "Response Code is ${resCode}")
+
 			//HttpURLConnectionオブジェクトからレスポンスデータを取得。天気情報が格納されている。
 			val stream = con.inputStream
 			//レスポンスデータであるInputStreamオブジェクトを文字列(JSON文字列)に変換。
