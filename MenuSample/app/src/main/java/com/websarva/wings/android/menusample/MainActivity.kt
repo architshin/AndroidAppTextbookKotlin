@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
 		//定食メニューリスト用のListオブジェクトを用意。
 		val menuList: MutableList<MutableMap<String, Any>> = mutableListOf()
 		//「から揚げ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
-		var menu = mutableMapOf("name" to "から揚げ定食", "price" to 800, "desc" to "若鳥のから揚げにサラダ、ご飯とお味噌汁が付きます。")
+		var menu = mutableMapOf<String, Any>("name" to "から揚げ定食", "price" to 800, "desc" to "若鳥のから揚げにサラダ、ご飯とお味噌汁が付きます。")
 		menuList.add(menu)
 		//「ハンバーグ定食」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		menu = mutableMapOf("name" to "ハンバーグ定食", "price" to 850, "desc" to "手ごねハンバーグにサラダ、ご飯とお味噌汁が付きます。")
@@ -163,7 +163,7 @@ class MainActivity : AppCompatActivity() {
 		//カレーメニューリスト用のListオブジェクトを用意。
 		val menuList: MutableList<MutableMap<String, Any>> = mutableListOf()
 		//「ビーフカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
-		var menu = mutableMapOf("name" to "ビーフカレー", "price" to 520, "desc" to "特選スパイスをきかせた国産ビーフ100%のカレーです。")
+		var menu = mutableMapOf<String, Any>("name" to "ビーフカレー", "price" to 520, "desc" to "特選スパイスをきかせた国産ビーフ100%のカレーです。")
 		menuList.add(menu)
 		//「ポークカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		menu = mutableMapOf("name" to "ポークカレー", "price" to 420, "desc" to "特選スパイスをきかせた国産ポーク100%のカレーです。")
