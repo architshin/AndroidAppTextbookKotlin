@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第5章
 リスト選択サンプル
 
@@ -20,6 +19,9 @@ res/values/string.xmlファイル
 		<item>ミンチかつ定食</item>
 		<item>チキンカツ定食</item>
 		<item>コロッケ定食</item>
+		<item>回鍋肉定食</item>
+		<item>麻婆豆腐定食</item>
+		<item>青椒肉絲定食</item>
 		<item>焼き魚定食</item>
 		<item>焼肉定食</item>
 	</string-array>
