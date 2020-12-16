@@ -1,6 +1,6 @@
 package com.websarva.wings.android.listviewsample
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -8,7 +8,7 @@ import android.widget.ListView
 import android.widget.Toast
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第5章
  * リスト選択サンプル
  *
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 			//トーストで表示する文字列を生成。
 			val show = "あなたが選んだ定食: " + item
 			//トーストの表示。
-			Toast.makeText(applicationContext, show, Toast.LENGTH_LONG).show()
+			Toast.makeText(this@MainActivity, show, Toast.LENGTH_LONG).show()
 		}
 	}
 }
