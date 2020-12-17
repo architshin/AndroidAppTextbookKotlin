@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 	 * @param url お天気情報を取得するURL。
 	 */
 	@UiThread
-	fun receiveWeatherInfo(urlFull: String) {
+	private fun receiveWeatherInfo(urlFull: String) {
 		val handler = HandlerCompat.createAsync(mainLooper)
 		val backgroundReceiver = WeatherInfoBackgroundReceiver(handler, urlFull)
 		val executeService = Executors.newSingleThreadExecutor()
