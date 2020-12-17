@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 		 * お天気APIにアクセスすするためのAPI Key。
 		 * ※※※※※この値は各自のものに書き換える!!※※※※※
 		 */
-		private const val APP_ID = "913136635cfa3182bbe18e34ffd44849"
+		private const val APP_ID = ""
 	}
 
 	/**
