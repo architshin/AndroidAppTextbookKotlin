@@ -1,12 +1,17 @@
 package com.websarva.wings.android.implicitintentsample
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import java.net.URLEncoder
 
@@ -65,6 +70,14 @@ class MainActivity : AppCompatActivity() {
 	override fun onResume() {
 		super.onResume()
 
+		// ACCESS_FINE_LOCATIONの許可が下りていないなら…
+		if(ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+			// ACCESS_FINE_LOCATIONの許可を求めるダイアログを表示。その際、リクエストコードを1000に設定。
+			val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+			ActivityCompat.requestPermissions(this@MainActivity, permissions, 1000)
+			// onResume()メソッドを終了。
+			return
+		}
 		// 位置情報の追跡を開始。
 		_fusedLocationClient.requestLocationUpdates(_locationRequest, _onUpdateLocation, mainLooper)
 	}
@@ -76,22 +89,34 @@ class MainActivity : AppCompatActivity() {
 		_fusedLocationClient.removeLocationUpdates(_onUpdateLocation)
 	}
 
+	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+		// ACCESS_FINE_LOCATIONに対するパーミションダイアログでかつ許可を選択したなら…
+		if(requestCode == 1000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+			// 再度ACCESS_FINE_LOCATIONの許可が下りていないかどうかのチェックをし、降りていないなら処理を中止。
+			if(ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+				return
+			}
+			// 位置情報の追跡を開始。
+			_fusedLocationClient.requestLocationUpdates(_locationRequest, _onUpdateLocation, mainLooper)
+		}
+	}
+
 	/**
 	 * 地図検索ボタンがタップされたときの処理メソッド。
 	 */
 	fun onMapSearchButtonClick(view: View) {
-		//入力欄に入力されたキーワード文字列を取得。
+		// 入力欄に入力されたキーワード文字列を取得。
 		val etSearchWord = findViewById<EditText>(R.id.etSearchWord)
 		var searchWord = etSearchWord.text.toString()
-		//入力されたキーワードをURLエンコード。
+		// 入力されたキーワードをURLエンコード。
 		searchWord = URLEncoder.encode(searchWord, "UTF-8")
-		//マップアプリと連携するURI文字列を生成。
+		// マップアプリと連携するURI文字列を生成。
 		val uriStr = "geo:0,0?q=${searchWord}"
-		//URI文字列からURIオブジェクトを生成。
+		// URI文字列からURIオブジェクトを生成。
 		val uri = Uri.parse(uriStr)
-		//Intentオブジェクトを生成。
+		// Intentオブジェクトを生成。
 		val intent = Intent(Intent.ACTION_VIEW, uri)
-		//アクティビティを起動。
+		// アクティビティを起動。
 		startActivity(intent)
 	}
 
@@ -99,13 +124,13 @@ class MainActivity : AppCompatActivity() {
 	 * 現在地の地図表示ボタンがタップされたときの処理メソッド。
 	 */
 	fun onMapShowCurrentButtonClick(view: View) {
-		//フィールドの緯度と経度の値をもとにマップアプリと連携するURI文字列を生成。
+		// プロパティの緯度と経度の値をもとにマップアプリと連携するURI文字列を生成。
 		val uriStr = "geo:${_latitude},${_longitude}"
-		//URI文字列からURIオブジェクトを生成。
+		// URI文字列からURIオブジェクトを生成。
 		val uri = Uri.parse(uriStr)
-		//Intentオブジェクトを生成。
+		// Intentオブジェクトを生成。
 		val intent = Intent(Intent.ACTION_VIEW, uri)
-		//アクティビティを起動。
+		// アクティビティを起動。
 		startActivity(intent)
 	}
 
