@@ -96,7 +96,7 @@
 		android:id="@+id/btSave"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/bt_save"/>
+		android:text="@string/bt_save" />
 
 	<ListView
 		android:layout_width="match_parent"
