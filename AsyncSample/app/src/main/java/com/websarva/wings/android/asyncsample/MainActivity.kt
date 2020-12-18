@@ -31,7 +31,7 @@ import java.util.concurrent.Executors
  * @author Shinzo SAITO
  */
 class MainActivity : AppCompatActivity() {
-	//クラス内のpirvate定数を宣言するためにcompanion objectブロックとする。
+	//クラス内のprivate定数を宣言するためにcompanion objectブロックとする。
 	companion object {
 		/**
 		 * ログに記載するタグ用の文字列。
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 		city = mutableMapOf("name" to "姫路", "q" to "Himeji")
 		list.add(city)
 
-		return list;
+		return list
 	}
 
 	/**
