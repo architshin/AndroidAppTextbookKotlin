@@ -8,7 +8,7 @@
 
 @author Shinzo SAITO
 
-ファイル名=activity_intent_start.xml
+ファイル名=activity_main.xml
 -->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
