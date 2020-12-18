@@ -10,6 +10,10 @@ import android.widget.SimpleAdapter
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
@@ -28,7 +32,7 @@ import java.net.URL
  * @author Shinzo SAITO
  */
 class MainActivity : AppCompatActivity() {
-	//クラス内のpirvate定数を宣言するためにcompanion objectブロックとする。
+	//クラス内のprivate定数を宣言するためにcompanion objectブロックとする。
 	companion object {
 		/**
 		 * ログに記載するタグ用の文字列。
@@ -42,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 		 * お天気APIにアクセスすするためのAPI Key。
 		 * ※※※※※この値は各自のものに書き換える!!※※※※※
 		 */
-		private const val APP_ID = "913136635cfa3182bbe18e34ffd44849"
+		private const val APP_ID = ""
 	}
 
 	/**
@@ -87,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 		city = mutableMapOf("name" to "姫路", "q" to "Himeji")
 		list.add(city)
 
-		return list;
+		return list
 	}
 
 	/**
@@ -97,6 +101,10 @@ class MainActivity : AppCompatActivity() {
 	 */
 	@UiThread
 	private fun receiveWeatherInfo(urlFull: String) {
+		lifecycleScope.launch {
+			val result = weatherInfoBackgroundRunner(urlFull)
+			weatherInfoPostRunner(result)
+		}
 	}
 
 	/**
@@ -105,38 +113,41 @@ class MainActivity : AppCompatActivity() {
 	 * @param url お天気情報を取得するURL。
 	 */
 	@WorkerThread
-	private fun weatherInfoBackgroundRunner(url: String): String {
-		// 天気情報サービスから取得したJSON文字列。天気情報が格納されている。
-		var result = ""
-		// URLオブジェクトを生成。
-		val url = URL(url)
-		// URLオブジェクトからHttpURLConnectionオブジェクトを取得。
-		val con = url.openConnection() as? HttpURLConnection
-		// conがnullじゃないならば…
-		con?.let {
-			try {
-				// 接続に使ってもよい時間を設定。
-				it.connectTimeout = 1000
-				// データ取得に使ってもよい時間。
-				it.readTimeout = 1000
-				// HTTP接続メソッドをGETに設定。
-				it.requestMethod = "GET"
-				// 接続。
-				it.connect()
-				// HttpURLConnectionオブジェクトからレスポンスデータを取得。
-				val stream = it.inputStream
-				// レスポンスデータであるInputStreamオブジェクトを文字列に変換。
-				result = is2String(stream)
-				// InputStreamオブジェクトを解放。
-				stream.close()
+	private suspend fun weatherInfoBackgroundRunner(url: String): String {
+		val returnVal = withContext(Dispatchers.IO) {
+			// 天気情報サービスから取得したJSON文字列。天気情報が格納されている。
+			var result = ""
+			// URLオブジェクトを生成。
+			val url = URL(url)
+			// URLオブジェクトからHttpURLConnectionオブジェクトを取得。
+			val con = url.openConnection() as? HttpURLConnection
+			// conがnullじゃないならば…
+			con?.let {
+				try {
+					// 接続に使ってもよい時間を設定。
+					it.connectTimeout = 1000
+					// データ取得に使ってもよい時間。
+					it.readTimeout = 1000
+					// HTTP接続メソッドをGETに設定。
+					it.requestMethod = "GET"
+					// 接続。
+					it.connect()
+					// HttpURLConnectionオブジェクトからレスポンスデータを取得。
+					val stream = it.inputStream
+					// レスポンスデータであるInputStreamオブジェクトを文字列に変換。
+					result = is2String(stream)
+					// InputStreamオブジェクトを解放。
+					stream.close()
+				}
+				catch(ex: SocketTimeoutException) {
+					Log.w(DEBUG_TAG, "通信タイムアウト", ex)
+				}
+				// HttpURLConnectionオブジェクトを解放。
+				it.disconnect()
 			}
-			catch(ex: SocketTimeoutException) {
-				Log.w(DEBUG_TAG, "通信タイムアウト", ex)
-			}
-			// HttpURLConnectionオブジェクトを解放。
-			it.disconnect()
+			result
 		}
-		return result
+		return returnVal
 	}
 
 	@UiThread
