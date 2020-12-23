@@ -1,7 +1,7 @@
 package com.websarva.wings.android.intentsample
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -9,7 +9,7 @@ import android.widget.ListView
 import android.widget.SimpleAdapter
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第7章
  * 画面遷移サンプル
  *
@@ -47,6 +47,12 @@ class MainActivity : AppCompatActivity() {
 		menuList.add(menu)
 		menu = mutableMapOf("name" to "コロッケ定食", "price" to "850円")
 		menuList.add(menu)
+		menu = mutableMapOf("name" to "回鍋肉定食", "price" to "750円")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "麻婆豆腐定食", "price" to "800円")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "青椒肉絲定食", "price" to "900円")
+		menuList.add(menu)
 		menu = mutableMapOf("name" to "焼き魚定食", "price" to "850円")
 		menuList.add(menu)
 		menu = mutableMapOf("name" to "焼肉定食", "price" to "950円")
@@ -57,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 		//SimpleAdapter第5引数to用データの用意。
 		val to = intArrayOf(android.R.id.text1, android.R.id.text2)
 		//SimpleAdapterを生成。
-		val adapter = SimpleAdapter(applicationContext, menuList, android.R.layout.simple_list_item_2, from, to)
+		val adapter = SimpleAdapter(this@MainActivity, menuList, android.R.layout.simple_list_item_2, from, to)
 		//アダプタの登録。
 		lvMenu.adapter = adapter
 		//リストタップのリスナクラス登録。
@@ -75,12 +81,16 @@ class MainActivity : AppCompatActivity() {
 			val menuName = item["name"]
 			val menuPrice = item["price"]
 			//インテントオブジェクトを生成。
-			val intent = Intent(applicationContext, MenuThanksActivity::class.java)
-			//第2画面に送るデータを格納。
-			intent.putExtra("menuName", menuName)
-			intent.putExtra("menuPrice", menuPrice)
+			val intent2MenuThanks = Intent(this@MainActivity, MenuThanksActivity::class.java)
+//			//第2画面に送るデータを格納。
+			intent2MenuThanks.putExtra("menuName", menuName)
+			intent2MenuThanks.putExtra("menuPrice", menuPrice)
+//			val intent2MenuThanks = Intent(this@MainActivity, MenuThanksActivity::class.java).apply {
+//				putExtra("menuName", menuName)
+//				putExtra("menuPrice", menuPrice)
+//			}
 			//第2画面の起動。
-			startActivity(intent)
+			startActivity(intent2MenuThanks)
 		}
 	}
 }
