@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第8章
 メニューサンプル
 
@@ -46,5 +46,12 @@
 			android:id="@+id/tvMenuPrice"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"/>
+
 	</LinearLayout>
+
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:onClick="onBackButtonClick"
+		android:text="@string/bt_thx_back"/>
 </LinearLayout>

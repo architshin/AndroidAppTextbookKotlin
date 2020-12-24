@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第8章
 メニューサンプル
 
@@ -18,4 +17,5 @@ res/values/string.xmlファイル
 	<string name="menu_list_context_header">操作を選んでください。</string>
 	<string name="tv_thx_title">注文完了</string>
 	<string name="tv_thx_desc">以下のメニューのご注文を受け付けました。\nご注文ありがとうございます。</string>
+	<string name="bt_thx_back">リストに戻る</string>
 </resources>
