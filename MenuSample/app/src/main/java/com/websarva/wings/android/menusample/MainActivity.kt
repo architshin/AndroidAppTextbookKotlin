@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 		when(item.itemId) {
 			// ［説明を表示］メニューが選択された時の処理。
 			R.id.menuListContextDesc -> {
-				//メ ニューの説明文字列を取得。
+				// メニューの説明文字列を取得。
 				val desc = menu["desc"] as String
 				// トーストを表示。
 				Toast.makeText(applicationContext, desc, Toast.LENGTH_LONG).show()
@@ -178,7 +178,7 @@ class MainActivity : AppCompatActivity() {
 	private fun createCurryList(): MutableList<MutableMap<String, Any>> {
 		// カレーメニューリスト用のListオブジェクトを用意。
 		val menuList: MutableList<MutableMap<String, Any>> = mutableListOf()
-		//「 ビーフカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
+		// 「ビーフカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
 		var menu = mutableMapOf<String, Any>("name" to "ビーフカレー", "price" to 520, "desc" to "特選スパイスをきかせた国産ビーフ100%のカレーです。")
 		menuList.add(menu)
 		// 「ポークカレー」のデータを格納するMapオブジェクトの用意とmenuListへのデータ登録。
