@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第9章
 フラグメントサンプル
 
@@ -8,7 +8,7 @@
 
 @author Shinzo SAITO
 
-ファイル名=fragment_menu_thanks.xml
+ファイル名=layout/fragment_menu_thanks.xml
 -->
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
@@ -46,7 +46,6 @@
 			android:id="@+id/tvMenuPrice"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"/>
-
 	</LinearLayout>
 
 	<Button
