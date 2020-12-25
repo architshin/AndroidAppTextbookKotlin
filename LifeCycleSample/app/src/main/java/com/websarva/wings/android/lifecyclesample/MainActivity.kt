@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
 	 * 「次の画面を表示」ボタンがタップされた時の処理。
 	 */
 	fun onButtonClick(view: View) {
-		//インテントオブジェクトを用意。
+		// インテントオブジェクトを用意。
 		val intent = Intent(applicationContext, SubActivity::class.java)
-		//アクティビティを起動。
+		// アクティビティを起動。
 		startActivity(intent)
 	}
 }
