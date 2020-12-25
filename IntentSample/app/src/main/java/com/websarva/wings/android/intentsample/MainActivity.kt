@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 			val menuPrice = item["price"]
 			// インテントオブジェクトを生成。
 			val intent2MenuThanks = Intent(this@MainActivity, MenuThanksActivity::class.java)
-//			// 第2画面に送るデータを格納。
+			// 第2画面に送るデータを格納。
 			intent2MenuThanks.putExtra("menuName", menuName)
 			intent2MenuThanks.putExtra("menuPrice", menuPrice)
 //			val intent2MenuThanks = Intent(this@MainActivity, MenuThanksActivity::class.java).apply {
