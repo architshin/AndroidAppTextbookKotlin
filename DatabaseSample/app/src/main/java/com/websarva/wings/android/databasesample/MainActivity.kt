@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	override fun onDestroy() {
-		// ヘルパーオブジェクトの開放。
+		// ヘルパーオブジェクトの解放。
 		_helper.close()
 		super.onDestroy()
 	}
