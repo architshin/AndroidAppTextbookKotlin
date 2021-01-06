@@ -1,12 +1,12 @@
 package com.websarva.wings.android.databasesample
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第10章
  * データベースサンプル
  *
@@ -16,11 +16,11 @@ import android.widget.*
  */
 class MainActivity : AppCompatActivity() {
 	/**
-	 * 選択されたカクテルの主キーIDを表すフィールド。
+	 * 選択されたカクテルの主キーIDを表すプロパティ。
 	 */
 	private var _cocktailId = -1
 	/**
-	 * 選択されたカクテル名を表すフィールド。
+	 * 選択されたカクテル名を表すプロパティ。
 	 */
 	private var _cocktailName = ""
 	/**
@@ -32,14 +32,14 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		//カクテルリスト用ListView(lvCocktail)を取得。
+		// カクテルリスト用ListView(lvCocktail)を取得。
 		val lvCocktail = findViewById<ListView>(R.id.lvCocktail)
-		//lvCocktailにリスナを登録。
+		// lvCocktailにリスナを登録。
 		lvCocktail.onItemClickListener = ListItemClickListener()
 	}
 
 	override fun onDestroy() {
-		//ヘルパーオブジェクトの開放。
+		// ヘルパーオブジェクトの解放。
 		_helper.close()
 		super.onDestroy()
 	}
@@ -48,44 +48,44 @@ class MainActivity : AppCompatActivity() {
 	 * 保存ボタンがタップされた時の処理メソッド。
 	 */
 	fun onSaveButtonClick(view: View) {
-		//感想欄を取得。
+		// 感想欄を取得。
 		val etNote = findViewById<EditText>(R.id.etNote)
-		//入力された感想を取得。
+		// 入力された感想を取得。
 		val note = etNote.text.toString()
 
-		//データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得。
+		// データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得。
 		val db = _helper.writableDatabase
 
-		//まず、リストで選択されたカクテルのメモデータを削除。その後インサートを行う。
-		//削除用SQL文字列を用意。
+		// まず、リストで選択されたカクテルのメモデータを削除。その後インサートを行う。
+		// 削除用SQL文字列を用意。
 		val sqlDelete = "DELETE FROM cocktailmemos WHERE _id = ?"
-		//SQL文字列を元にプリペアドステートメントを取得。
+		// SQL文字列を元にプリペアドステートメントを取得。
 		var stmt = db.compileStatement(sqlDelete)
-		//変数のバイド。
+		// 変数のバイド。
 		stmt.bindLong(1, _cocktailId.toLong())
-		//削除SQLの実行。
+		// 削除SQLの実行。
 		stmt.executeUpdateDelete()
 
-		//インサート用SQL文字列の用意。
+		// インサート用SQL文字列の用意。
 		val sqlInsert = "INSERT INTO cocktailmemos (_id, name, note) VALUES (?, ?, ?)"
-		//SQL文字列を元にプリペアドステートメントを取得。
+		// SQL文字列を元にプリペアドステートメントを取得。
 		stmt = db.compileStatement(sqlInsert)
-		//変数のバイド。
+		// 変数のバイド。
 		stmt.bindLong(1, _cocktailId.toLong())
 		stmt.bindString(2, _cocktailName)
 		stmt.bindString(3, note)
-		//インサートSQLの実行。
+		// インサートSQLの実行。
 		stmt.executeInsert()
 
-		//感想欄の入力値を消去。
+		// 感想欄の入力値を消去。
 		etNote.setText("")
-		//カクテル名を表示するTextViewを取得。
+		// カクテル名を表示するTextViewを取得。
 		val tvCocktailName = findViewById<TextView>(R.id.tvCocktailName)
-		//カクテル名を「未選択」に変更。
+		// カクテル名を「未選択」に変更。
 		tvCocktailName.text = getString(R.string.tv_name)
-		//保存ボタンを取得。
+		// 保存ボタンを取得。
 		val btnSave = findViewById<Button>(R.id.btnSave)
-		//保存ボタンをタップできないように変更。
+		// 保存ボタンをタップできないように変更。
 		btnSave.isEnabled = false
 	}
 
@@ -94,45 +94,45 @@ class MainActivity : AppCompatActivity() {
 	 */
 	private inner class ListItemClickListener : AdapterView.OnItemClickListener {
 		override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-			//タップされた行番号をフィールドの主キーIDに代入。
+			// タップされた行番号をプロパティの主キーIDに代入。
 			_cocktailId = position
-			//タップされた行のデータを取得。これがカクテル名となるので、フィールドに代入。
+			// タップされた行のデータを取得。これがカクテル名となるので、プロパティに代入。
 			_cocktailName = parent.getItemAtPosition(position) as String
-			//カクテル名を表示するTextViewを取得。
+			// カクテル名を表示するTextViewを取得。
 			val tvCocktailName = findViewById<TextView>(R.id.tvCocktailName)
-			//カクテル名を表示するTextViewに表示カクテル名を設定。
+			// カクテル名を表示するTextViewに表示カクテル名を設定。
 			tvCocktailName.text = _cocktailName
-			//保存ボタンを取得。
+			// 保存ボタンを取得。
 			val btnSave = findViewById<Button>(R.id.btnSave)
-			//保存ボタンをタップできるように設定。
+			// 保存ボタンをタップできるように設定。
 			btnSave.isEnabled = true
 
-			//データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得。
+			// データベースヘルパーオブジェクトからデータベース接続オブジェクトを取得。
 			val db = _helper.writableDatabase
-			//主キーによる検索SQL文字列の用意。
+			// 主キーによる検索SQL文字列の用意。
 			val sql = "SELECT * FROM cocktailmemos WHERE _id = ${_cocktailId}"
-			//SQLの実行。
+			// SQLの実行。
 			val cursor = db.rawQuery(sql, null)
 
-			//以下はバインド変数を使う場合の記述。
+			// 以下はバインド変数を使う場合の記述。
 //			val sql = "SELECT * FROM cocktailmemos WHERE _id = ?"
 //			val params = arrayOf(_cocktailId.toString())
 //			val cursor = db.rawQuery(sql, params)
 
-			//以下はSQL文を使わない場合。
+			// 以下はSQL文を使わない場合。
 //			val params = arrayOf(_cocktailId.toString())
 //			val cursor = db.query("cocktailmemos", null, "_id = ?", params, null, null, null)
 
-			//データベースから取得した値を格納する変数の用意。データがなかった時のための初期値も用意。
+			// データベースから取得した値を格納する変数の用意。データがなかった時のための初期値も用意。
 			var note = ""
-			//SQL実行の戻り値であるカーソルオブジェクトをループさせてデータベース内のデータを取得。
+			// SQL実行の戻り値であるカーソルオブジェクトをループさせてデータベース内のデータを取得。
 			while(cursor.moveToNext()) {
-				//カラムのインデックス値を取得。
+				// カラムのインデックス値を取得。
 				val idxNote = cursor.getColumnIndex("note")
-				//カラムのインデックス値を元に実際のデータを取得。
+				// カラムのインデックス値を元に実際のデータを取得。
 				note = cursor.getString(idxNote)
 			}
-			//感想のEditTextの各画面部品を取得しデータベースの値を反映。
+			// 感想のEditTextの各画面部品を取得しデータベースの値を反映。
 			val etNote = findViewById<EditText>(R.id.etNote)
 			etNote.setText(note)
 		}
