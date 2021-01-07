@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第16章
 ツールバーサンプル
 
@@ -16,11 +16,11 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical">
 
-	<android.support.v7.widget.Toolbar
+	<androidx.appcompat.widget.Toolbar
 		android:id="@+id/toolbar"
 		android:layout_width="match_parent"
 		android:layout_height="?attr/actionBarSize"
-		android:background="@color/colorPrimary"
+		android:background="?attr/colorPrimary"
 		android:elevation="10dp"/>
 
 	<ScrollView
