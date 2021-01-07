@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第12章
 メディアサンプル
 
@@ -14,5 +13,5 @@ res/values/string.xmlファイル
 	<string name="bt_play_pause">一時停止</string>
 	<string name="bt_back">&lt;&lt;</string>
 	<string name="bt_forward">&gt;&gt;</string>
-	<string name="tv_loop">リピート再生</string>
+	<string name="sw_loop">リピート再生</string>
 </resources>
