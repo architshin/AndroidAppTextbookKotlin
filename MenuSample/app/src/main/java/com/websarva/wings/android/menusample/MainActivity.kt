@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
 	/**
 	 * SimpleAdapterの第5引数toに使用するプロパティ。
 	 */
-	private val _to = intArrayOf(R.id.tvMenuName, R.id.tvMenuPrice)
+	private val _to = intArrayOf(R.id.tvMenuNameRow, R.id.tvMenuPriceRow)
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		// SimpleAdapterで使用する定食メニューListオブジェクトをprivateメソッドを利用して用意し、フィールドに格納。
+		// SimpleAdapterで使用する定食メニューListオブジェクトをprivateメソッドを利用して用意し、プロパティに格納。
 		_menuList = createTeishokuList()
 		// 画面部品ListViewを取得。
 		val lvMenu = findViewById<ListView>(R.id.lvMenu)
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
 				// メニューの説明文字列を取得。
 				val desc = menu["desc"] as String
 				// トーストを表示。
-				Toast.makeText(applicationContext, desc, Toast.LENGTH_LONG).show()
+				Toast.makeText(this@MainActivity, desc, Toast.LENGTH_LONG).show()
 			}
 			// ［ご注文］メニューが選択された時の処理。
 			R.id.menuListContextOrder ->
