@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 	 */
 	fun onButtonClick(view: View) {
 		// インテントオブジェクトを用意。
-		val intent = Intent(applicationContext, SubActivity::class.java)
+		val intent = Intent(this@MainActivity, SubActivity::class.java)
 		// アクティビティを起動。
 		startActivity(intent)
 	}
