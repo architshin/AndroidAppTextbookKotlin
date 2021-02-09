@@ -76,7 +76,7 @@ class MenuListFragment : Fragment() {
 		// アダプタの登録。
 		lvMenu.adapter = adapter
 
-		//リスナの登録。
+		// リスナの登録。
 		lvMenu.onItemClickListener = ListItemClickListener()
 
 		// インフレートされた画面を戻り値として返す。

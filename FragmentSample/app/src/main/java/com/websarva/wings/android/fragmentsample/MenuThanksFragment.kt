@@ -32,7 +32,7 @@ class MenuThanksFragment : Fragment() {
 		val menuListFragment = fragmentManager?.findFragmentById(R.id.fragmentMenuList)
 		// メニューリストフラグメントがnull、つまり存在しないなら…
 		if(menuListFragment == null) {
-			//画面判定フラグを通常画面とする。
+			// 画面判定フラグを通常画面とする。
 			_isLayoutXLarge = false
 		}
 	}
@@ -71,7 +71,7 @@ class MenuThanksFragment : Fragment() {
 		// 戻るボタンにリスナを登録。
 		btBackButton.setOnClickListener(ButtonClickListener())
 
-		//インフレートされた画面を戻り値として返す。
+		// インフレートされた画面を戻り値として返す。
 		return view
 	}
 
