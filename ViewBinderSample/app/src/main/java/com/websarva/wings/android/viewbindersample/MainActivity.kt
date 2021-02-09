@@ -1,6 +1,6 @@
 package com.websarva.wings.android.viewbindersample
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -9,7 +9,7 @@ import android.widget.SimpleAdapter
 import android.widget.TextView
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第7章 Note
  * ViewBinderサンプル
  *
@@ -22,19 +22,19 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		//SimpleAdapterで使用する名前Listオブジェクトをprivateメソッドを利用して用意。
+		// SimpleAdapterで使用する名前Listオブジェクトをprivateメソッドを利用して用意。
 		val nameList = createNameList()
-		//SimpleAdapterの第4引数fromに使用する変数を用意。
+		// SimpleAdapterの第4引数fromに使用する変数を用意。
 		val from = arrayOf("name", "sex")
-		//SimpleAdapterの第5引数toに使用する変数を用意。
+		// SimpleAdapterの第5引数toに使用する変数を用意。
 		val to = intArrayOf(R.id.tvName, R.id.imSex)
-		//SimpleAdapterを生成。
+		// SimpleAdapterを生成。
 		val adapter = SimpleAdapter(applicationContext, nameList, R.layout.row, from, to)
-		//カスタムビューバインダを登録。
+		// カスタムビューバインダを登録。
 		adapter.viewBinder = CustomViewBinder()
-		//画面部品ListViewを取得。
+		// 画面部品ListViewを取得。
 		val lvPhones = findViewById<ListView>(R.id.lvNameList)
-		//アダプタの登録。
+		// アダプタの登録。
 		lvPhones.adapter = adapter
 	}
 
@@ -44,18 +44,18 @@ class MainActivity : AppCompatActivity() {
 	 * @return 生成された名前リストデータ。
 	 */
 	private fun createNameList(): MutableList<MutableMap<String, Any>> {
-		//名前リスト用のListオブジェクトを用意。
+		// 名前リスト用のListオブジェクトを用意。
 		val nameList = mutableListOf<MutableMap<String, Any>>()
 
-		//一人目のデータを格納するMapオブジェクトの用意とnameListへのデータ登録。
-		var person = mutableMapOf("name" to "田中一郎", "sex" to 1)
+		// 一人目のデータを格納するMapオブジェクトの用意とnameListへのデータ登録。
+		var person = mutableMapOf<String, Any>("name" to "田中一郎", "sex" to 1)
 		nameList.add(person)
 
-		//二人目のデータを格納するMapオブジェクトの用意とnameListへのデータ登録。
+		// 二人目のデータを格納するMapオブジェクトの用意とnameListへのデータ登録。
 		person = mutableMapOf("name" to "江藤香織", "sex" to 0)
 		nameList.add(person)
 
-		//以下データ登録の繰り返し。
+		// 以下データ登録の繰り返し。
 		person = mutableMapOf("name" to "中山裕子", "sex" to 0)
 		nameList.add(person)
 		person = mutableMapOf("name" to "中谷源蔵", "sex" to 1)
@@ -95,30 +95,30 @@ class MainActivity : AppCompatActivity() {
 			 * viewとdataの組合わせはfromとtoの組合せそのもの。
 			 */
 
-			//idのR値に応じて分岐。
+			// idのR値に応じて分岐。
 			when(view.id) {
-				//名前を表示するTextViewなら…
+				// 名前を表示するTextViewなら…
 				R.id.tvName -> {
-					//TextViewにキャストして、表示データ(名前)をセットする。
+					// TextViewにキャストして、表示データ(名前)をセットする。
 					val tvName = view as TextView
 					tvName.text = textRepresentation
 					return true
 				}
-				//性別アイコンを表示するImageViewなら…
+				// 性別アイコンを表示するImageViewなら…
 				R.id.imSex -> {
-					//ImageViewにキャスト。
+					// ImageViewにキャスト。
 					val imPhoneType = view as ImageView
-					//表示データを整数型にキャスト。
+					// 表示データを整数型にキャスト。
 					val sex = data as Int
-					//表示データに応じて処理を分岐。
+					// 表示データに応じて処理を分岐。
 					when(sex) {
-						//女性なら…
+						// 女性なら…
 						0 ->
-							//女性アイコンをセット。
+							// 女性アイコンをセット。
 							imPhoneType.setImageResource(R.drawable.ic_female)
-						//男性なら…
+						// 男性なら…
 						1 ->
-							//男性アイコンをセット。
+							// 男性アイコンをセット。
 							imPhoneType.setImageResource(R.drawable.ic_male)
 					}
 					return true
