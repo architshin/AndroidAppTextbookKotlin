@@ -32,7 +32,7 @@ import java.net.URL
  * @author Shinzo SAITO
  */
 class MainActivity : AppCompatActivity() {
-	//クラス内のprivate定数を宣言するためにcompanion objectブロックとする。
+	// クラス内のprivate定数を宣言するためにcompanion objectブロックとする。
 	companion object {
 		/**
 		 * ログに記載するタグ用の文字列。
