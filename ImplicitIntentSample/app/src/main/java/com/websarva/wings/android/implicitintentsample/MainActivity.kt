@@ -16,7 +16,7 @@ import com.google.android.gms.location.*
 import java.net.URLEncoder
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第14章
  * 暗黙的インテントサンプル
  *

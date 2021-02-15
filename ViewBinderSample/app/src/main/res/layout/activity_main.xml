@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第7章 Note
 ViewBinderサンプル
 
@@ -8,7 +8,7 @@ ViewBinderサンプル
 
 @author Shinzo SAITO
 
-ファイル名=activity_name_list.xml
+ファイル名=activity_main.xml
 -->
 <ListView
 	xmlns:android="http://schemas.android.com/apk/res/android"

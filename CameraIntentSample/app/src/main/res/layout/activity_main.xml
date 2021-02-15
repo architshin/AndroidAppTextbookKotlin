@@ -8,7 +8,7 @@
 
 @author Shinzo SAITO
 
-ファイル名=activity_use_camera.xml
+ファイル名=activity_main.xml
 -->
 <ImageView
 	xmlns:android="http://schemas.android.com/apk/res/android"
