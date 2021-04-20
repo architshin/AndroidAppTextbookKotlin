@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第3章
 画面部品サンプル
 
@@ -33,5 +32,7 @@ res/values/string.xmlファイル
 		<item>マンハッタン</item>
 		<item>ミシシッピミュール</item>
 		<item>ブルーハワイ</item>
+		<item>マイタイ</item>
+		<item>マティーニ</item>
 	</string-array>
 </resources>

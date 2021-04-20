@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第10章
  * データベースサンプル
  *
@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteOpenHelper
  * @author Shinzo SAITO
  */
 class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
-	//クラス内のpirvate定数を宣言するためにcompanion objectブロックとする。
+	// クラス内のprivate定数を宣言するためにcompanion objectブロックとする。
 	companion object {
 		/**
 		 * データベースファイル名の定数フィールド。
@@ -27,7 +27,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
 	}
 
 	override fun onCreate(db: SQLiteDatabase) {
-		//テーブル作成用SQL文字列の作成。
+		// テーブル作成用SQL文字列の作成。
 		val sb = StringBuilder()
 		sb.append("CREATE TABLE cocktailmemos (")
 		sb.append("_id INTEGER PRIMARY KEY,")
@@ -36,7 +36,7 @@ class DatabaseHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME,
 		sb.append(");")
 		val sql = sb.toString()
 
-		//SQLの実行。
+		// SQLの実行。
 		db.execSQL(sql)
 	}
 

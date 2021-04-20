@@ -1,23 +1,28 @@
 package com.websarva.wings.android.asyncsample
 
-import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.SimpleAdapter
 import android.widget.TextView
+import androidx.annotation.UiThread
+import androidx.annotation.WorkerThread
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.HandlerCompat
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
 import java.net.URL
+import java.util.concurrent.Executors
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第11章
  * Web API連携サンプル
  *
@@ -26,140 +31,137 @@ import java.net.URL
  * @author Shinzo SAITO
  */
 class MainActivity : AppCompatActivity() {
+	// クラス内のprivate定数を宣言するためにcompanion objectブロックとする。
+	companion object {
+		/**
+		 * ログに記載するタグ用の文字列。
+		 */
+		private const val DEBUG_TAG = "AsyncSample"
+		/**
+		 * お天気情報のURL。
+		 */
+		private const val WEATHERINFO_URL = "https://api.openweathermap.org/data/2.5/weather?lang=ja"
+		/**
+		 * お天気APIにアクセスすするためのAPI Key。
+		 * ※※※※※この値は各自のものに書き換える!!※※※※※
+		 */
+		private const val APP_ID = ""
+	}
+
+	/**
+	 * リストビューに表示させるリストデータ。
+	 */
+	private var _list: MutableList<MutableMap<String, String>> = mutableListOf()
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		//画面部品ListViewを取得
+		_list = createList()
+
 		val lvCityList = findViewById<ListView>(R.id.lvCityList)
-		//SimpleAdapterで使用するMutableListオブジェクトを用意。
-		val cityList: MutableList<MutableMap<String, String>> = mutableListOf()
-		//都市データを格納するMutableMapオブジェクトの用意とcityListへのデータ登録。
-		var city = mutableMapOf("name" to "大阪","id" to "270000")
-		cityList.add(city)
-		city = mutableMapOf("name" to "神戸", "id" to "280010")
-		cityList.add(city)
-		city = mutableMapOf("name" to "豊岡", "id" to "280020")
-		cityList.add(city)
-		city = mutableMapOf("name" to "京都", "id" to "260010")
-		cityList.add(city)
-		city = mutableMapOf("name" to "舞鶴", "id" to "260020")
-		cityList.add(city)
-		city = mutableMapOf("name" to "奈良", "id" to "290010")
-		cityList.add(city)
-		city = mutableMapOf("name" to "風屋", "id" to "290020")
-		cityList.add(city)
-		city = mutableMapOf("name" to "和歌山", "id" to "300010")
-		cityList.add(city)
-		city = mutableMapOf("name" to "潮岬", "id" to "300020")
-		cityList.add(city)
-		//SimpleAdapterで使用するfrom-to用変数の用意。
-		val from = arrayOf("name")
+		val from  = arrayOf("name")
 		val to = intArrayOf(android.R.id.text1)
-		//SimpleAdapterを生成。
-		val adapter = SimpleAdapter(applicationContext, cityList, android.R.layout.simple_expandable_list_item_1, from, to)
-		//ListViewにSimpleAdapterを設定。
+		val adapter = SimpleAdapter(this@MainActivity, _list, android.R.layout.simple_list_item_1, from, to)
 		lvCityList.adapter = adapter
-		//リストタップのリスナクラス登録。
 		lvCityList.onItemClickListener = ListItemClickListener()
 	}
 
 	/**
-	 * リストがタップされたときの処理が記述されたメンバクラス。
+	 * リストビューに表示させる天気ポイントリストデータを生成するメソッド。
+	 *
+	 * @return 生成された天気ポイントリストデータ。
 	 */
-	private inner class ListItemClickListener : AdapterView.OnItemClickListener {
-		override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-			//ListViewでタップされた行の都市名と都市IDを取得。
-			val item = parent.getItemAtPosition(position) as Map<String, String>
-			val cityName = item["name"]
-			val cityId = item["id"]
-			//取得した都市名をtvCityNameに設定。
-			val tvCityName = findViewById<TextView>(R.id.tvCityName)
-			tvCityName.setText(cityName + "の天気: ")
-			//WeatherInfoReceiverインスタンスを生成。
-			val receiver = WeatherInfoReceiver()
-			//WeatherInfoReceiverを実行。
-			receiver.execute(cityId)
-		}
+	private fun createList(): MutableList<MutableMap<String, String>> {
+		var list: MutableList<MutableMap<String, String>> = mutableListOf()
+
+		var city = mutableMapOf("name" to "大阪", "q" to "Osaka")
+		list.add(city)
+		city = mutableMapOf("name" to "神戸", "q" to "Kobe")
+		list.add(city)
+		city = mutableMapOf("name" to "京都", "q" to "Kyoto")
+		list.add(city)
+		city = mutableMapOf("name" to "大津", "q" to "Otsu")
+		list.add(city)
+		city = mutableMapOf("name" to "奈良", "q" to "Nara")
+		list.add(city)
+		city = mutableMapOf("name" to "和歌山", "q" to "Wakayama")
+		list.add(city)
+		city = mutableMapOf("name" to "姫路", "q" to "Himeji")
+		list.add(city)
+
+		return list
 	}
 
 	/**
-	 * 非同期でお天気データを取得するクラス。
+	 * お天気情報の取得処理を行うメソッド。
+	 *
+	 * @param url お天気情報を取得するURL。
 	 */
-	private inner class WeatherInfoReceiver(): AsyncTask<String, String, String>() {
-		override fun doInBackground(vararg params: String): String {
-			//可変長引数の1個目(インデックス0)を取得。これが都市ID
-			val id = params[0]
-			//都市IDを使って接続URL文字列を作成。
-			val urlStr = "http://weather.livedoor.com/forecast/webservice/json/v1?city=${id}"
+	@UiThread
+	private fun receiveWeatherInfo(urlFull: String) {
+		val handler = HandlerCompat.createAsync(mainLooper)
+		val backgroundReceiver = WeatherInfoBackgroundReceiver(handler, urlFull)
+		val executeService = Executors.newSingleThreadExecutor()
+		executeService.submit(backgroundReceiver)
+	}
 
-			//URLオブジェクトを生成。
-			val url = URL(urlStr)
-			//URLオブジェクトからHttpURLConnectionオブジェクトを取得。
-			val con = url.openConnection() as HttpURLConnection
-			//http接続メソッドを設定。
-			con.requestMethod = "GET"
+	/**
+	 * 非同期でお天気情報APIにアクセスするためのクラス。
+	 *
+	 * @param handler ハンドラオブジェクト。
+	 * @param url お天気情報を取得するURL。
+	 */
+	private inner class WeatherInfoBackgroundReceiver(handler: Handler, url: String): Runnable {
+		/**
+		 * ハンドラオブジェクト。
+		 */
+		private val _handler = handler
+		/**
+		 * お天気情報を取得するURL。
+		 */
+		private val _url = url
 
-			//以下タイムアウトを設定する場合のコード。
-//			con.connectTimeout = 1000
-//			con.readTimeout = 1000
-
-			//接続。
-			con.connect()
-
-			//以下HTTPステータスコードを取得する場合のコード。
-//			val resCode = con.responseCode
-//			Log.i("AsyncSample", "Response Code is ${resCode}")
-
-			//HttpURLConnectionオブジェクトからレスポンスデータを取得。天気情報が格納されている。
-			val stream = con.inputStream
-			//レスポンスデータであるInputStreamオブジェクトを文字列(JSON文字列)に変換。
-			val result = is2String(stream)
-			//HttpURLConnectionオブジェクトを解放。
-			con.disconnect()
-			//InputStreamオブジェクトを解放。
-			stream.close()
-
-			//以下、POST接続の場合のサンプルコード。
-//			val name = "名無し"
-//			val comment = "こんにちは"
-//			val postData = "name=${name}&comment=${comment}"
-//			con.requestMethod = "POST"
-//			con.doOutput = true
-//			val outStream = con.outputStream
-//			outStream.write(postData.toByteArray())
-//			outStream.flush()
-//			outStream.close()
-//			con.disconnect()
-//			val result = ""
-
-			//JSON文字列を返す。
-			return result
-		}
-
-		override fun onPostExecute(result: String) {
-			//JSON文字列からJSONObjectオブジェクトを生成。これをルートJSONオブジェクトとする。
-			val rootJSON = JSONObject(result)
-			//ルートJSON直下の「description」JSONオブジェクトを取得。
-			val descriptionJSON = rootJSON.getJSONObject("description")
-			//「description」プロパティ直下の「text」文字列(天気概況文)を取得。
-			val desc = descriptionJSON.getString("text")
-			//ルートJSON直下の「forecasts」JSON配列を取得。
-			val forecasts = rootJSON.getJSONArray("forecasts")
-			//「forecasts」JSON配列のひとつ目(インデックス0)のJSONオブジェクトを取得。
-			val forecastNow = forecasts.getJSONObject(0)
-			//「forecasts」ひとつ目のJSONオブジェクトから「telop」文字列(天気)を取得。
-			val telop = forecastNow.getString("telop")
-
-			//天気情報用文字列をTextViewにセット。
-			val tvWeatherTelop = findViewById<TextView>(R.id.tvWeatherTelop)
-			val tvWeatherDesc = findViewById<TextView>(R.id.tvWeatherDesc)
-			tvWeatherTelop.text = telop
-			tvWeatherDesc.text = desc
+		@WorkerThread
+		override fun run() {
+			// 天気情報サービスから取得したJSON文字列。天気情報が格納されている。
+			var result = ""
+			// URLオブジェクトを生成。
+			val url = URL(_url)
+			// URLオブジェクトからHttpURLConnectionオブジェクトを取得。
+			val con = url.openConnection() as? HttpURLConnection
+			// conがnullじゃないならば…
+			con?.let {
+				try {
+					// 接続に使ってもよい時間を設定。
+					it.connectTimeout = 1000
+					// データ取得に使ってもよい時間。
+					it.readTimeout = 1000
+					// HTTP接続メソッドをGETに設定。
+					it.requestMethod = "GET"
+					// 接続。
+					it.connect()
+					// HttpURLConnectionオブジェクトからレスポンスデータを取得。
+					val stream = it.inputStream
+					// レスポンスデータであるInputStreamオブジェクトを文字列に変換。
+					result = is2String(stream)
+					// InputStreamオブジェクトを解放。
+					stream.close()
+//					result = is2String(it.inputStream)
+//					it.inputStream.close()
+				}
+				catch(ex: SocketTimeoutException) {
+					Log.w(DEBUG_TAG, "通信タイムアウト", ex)
+				}
+				// HttpURLConnectionオブジェクトを解放。
+				it.disconnect()
+			}
+			val postExecutor = WeatherInfoPostExecutor(result)
+			_handler.post(postExecutor)
 		}
 
 		/**
-		 * InputStreamオブジェクトを文字列に変換するメソッド。変換文字コードはUTF-8。
+		 * InputStreamオブジェクトを文字列に変換するメソッド。 変換文字コードはUTF-8。
 		 *
 		 * @param stream 変換対象のInputStreamオブジェクト。
 		 * @return 変換された文字列。
@@ -174,6 +176,62 @@ class MainActivity : AppCompatActivity() {
 			}
 			reader.close()
 			return sb.toString()
+		}
+	}
+
+	/**
+	 * 非同期でお天気情報を取得した後にUIスレッドでその情報を表示するためのクラス。
+	 *
+	 * @param result Web APIから取得したお天気情報JSON文字列。
+	 */
+	private inner class WeatherInfoPostExecutor(result: String): Runnable {
+		/**
+		 * 取得したお天気情報JSON文字列。
+		 */
+		private val _result = result
+
+		@UiThread
+		override fun run() {
+			// ルートJSONオブジェクトを生成。
+			val rootJSON = JSONObject(_result)
+			// 都市名文字列を取得。
+			val cityName = rootJSON.getString("name")
+			// 緯度経度情報JSONオブジェクトを取得。
+			val coordJSON = rootJSON.getJSONObject("coord")
+			// 緯度情報文字列を取得。
+			val latitude = coordJSON.getString("lat")
+			// 経度情報文字列を取得。
+			val longitude = coordJSON.getString("lon")
+			// 天気情報JSON配列オブジェクトを取得。
+			val weatherJSONArray = rootJSON.getJSONArray("weather")
+			// 現在の天気情報JSONオブジェクトを取得。
+			val weatherJSON = weatherJSONArray.getJSONObject(0)
+			// 現在の天気情報文字列を取得。
+			val weather = weatherJSON.getString("description")
+			// 画面に表示する「〇〇の天気」文字列を生成。
+			val telop = "${cityName}の天気"
+			// 天気の詳細情報を表示する文字列を生成。
+			val desc = "現在は${weather}です。\n緯度は${latitude}度で経度は${longitude}度です。"
+			// 天気情報を表示するTextViewを取得。
+			val tvWeatherTelop = findViewById<TextView>(R.id.tvWeatherTelop)
+			val tvWeatherDesc = findViewById<TextView>(R.id.tvWeatherDesc)
+			// 天気情報を表示。
+			tvWeatherTelop.text = telop
+			tvWeatherDesc.text = desc
+		}
+	}
+
+	/**
+	 * リストがタップされた時の処理が記述されたリスナクラス。
+	 */
+	private inner class ListItemClickListener: AdapterView.OnItemClickListener {
+		override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+			val item = _list.get(position)
+			val q = item.get("q")
+			q?.let {
+				val urlFull = "$WEATHERINFO_URL&q=$q&appid=$APP_ID"
+				receiveWeatherInfo(urlFull)
+			}
 		}
 	}
 }

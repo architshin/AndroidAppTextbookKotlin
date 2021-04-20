@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第11章
 Web API連携サンプル
 
@@ -35,36 +35,17 @@ Web API連携サンプル
 			android:text="@string/tv_winfo_title"
 			android:textSize="25sp"/>
 
-		<LinearLayout
+		<TextView
+			android:id="@+id/tvWeatherTelop"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dp"
-			android:orientation="horizontal">
+			android:layout_marginBottom="8dp"
+			android:textSize="20sp" />
 
-			<TextView
-				android:id="@+id/tvCityName"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:textSize="20sp"/>
-
-			<TextView
-				android:id="@+id/tvWeatherTelop"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:textSize="20sp"/>
-
-		</LinearLayout>
-
-		<ScrollView
+		<TextView
+			android:id="@+id/tvWeatherDesc"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
-
-			<TextView
-				android:id="@+id/tvWeatherDesc"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:textSize="15sp"/>
-		</ScrollView>
+			android:layout_height="wrap_content"
+			android:textSize="15sp"/>
 	</LinearLayout>
 </LinearLayout>

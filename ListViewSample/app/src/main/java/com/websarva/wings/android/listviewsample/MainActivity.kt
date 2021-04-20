@@ -1,6 +1,6 @@
 package com.websarva.wings.android.listviewsample
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -8,7 +8,7 @@ import android.widget.ListView
 import android.widget.Toast
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第5章
  * リスト選択サンプル
  *
@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		//ListViewオブジェクトを取得。
+		// ListViewオブジェクトを取得。
 		val lvMenu = findViewById<ListView>(R.id.lvMenu)
-		//ListViewにリスナを設定。
+		// ListViewにリスナを設定。
 		lvMenu.onItemClickListener = ListItemClickListener()
 	}
 
@@ -32,12 +32,12 @@ class MainActivity : AppCompatActivity() {
 	 */
 	private inner class ListItemClickListener : AdapterView.OnItemClickListener {
 		override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-			//タップされた定食名を取得。
+			// タップされた定食名を取得。
 			val item = parent.getItemAtPosition(position) as String
-			//トーストで表示する文字列を生成。
+			// トーストで表示する文字列を生成。
 			val show = "あなたが選んだ定食: " + item
-			//トーストの表示。
-			Toast.makeText(applicationContext, show, Toast.LENGTH_LONG).show()
+			// トーストの表示。
+			Toast.makeText(this@MainActivity, show, Toast.LENGTH_LONG).show()
 		}
 	}
 }

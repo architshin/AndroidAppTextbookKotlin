@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-『Androidアプリ開発の教科書』
+『Androidアプリ開発の教科書Kotlin』
 第12章
 メディアサンプル
 
@@ -47,20 +47,9 @@
 			android:text="@string/bt_forward"/>
 	</LinearLayout>
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="horizontal">
-
-		<TextView
-			android:id="@+id/tvLoop"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/tv_loop"/>
-
-		<Switch
-			android:id="@+id/swLoop"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-	</LinearLayout>
+	<com.google.android.material.switchmaterial.SwitchMaterial
+		android:id="@+id/swLoop"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/sw_loop"/>
 </LinearLayout>

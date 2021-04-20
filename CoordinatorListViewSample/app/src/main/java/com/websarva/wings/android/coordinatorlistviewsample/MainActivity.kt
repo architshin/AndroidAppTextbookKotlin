@@ -1,13 +1,13 @@
 package com.websarva.wings.android.coordinatorlistviewsample
 
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 /**
- * 『Androidアプリ開発の教科書』
+ * 『Androidアプリ開発の教科書Kotlin』
  * 第17章
  * スロール連動しないListViewサンプル
  *
