@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 			// カメラアプリからの戻りでかつ撮影成功の場合
 			if(result?.resultCode == RESULT_OK) {
 				// 撮影された画像のビットマップデータを取得。
-//				val bitmap = data?.getParcelableExtra<Bitmap>("data")
+//				val bitmap = result.data?.getParcelableExtra<Bitmap>("data")
 				// 画像を表示するImageViewを取得。
 				val ivCamera = findViewById<ImageView>(R.id.ivCamera)
 				// 撮影された画像をImageViewに設定。
