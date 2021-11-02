@@ -9,6 +9,9 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.ImageView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,25 +30,14 @@ class MainActivity : AppCompatActivity() {
 	 */
 	private var _imageUri: Uri? = null
 
+	/**
+	 * Cameraアクティビティを起動するためのランチャーオブジェクト。
+	 */
+	private val _cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ActivityResultCallbackFromCamera())
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-	}
-
-	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-		// 親クラスの同名メソッドの呼び出し。
-		super.onActivityResult(requestCode, resultCode, data)
-		// カメラアプリからの戻りでかつ撮影成功の場合
-		if(requestCode == 200 && resultCode == RESULT_OK) {
-			// 撮影された画像のビットマップデータを取得。
-//			val bitmap = data?.getParcelableExtra<Bitmap>("data")
-			// 画像を表示するImageViewを取得。
-			val ivCamera = findViewById<ImageView>(R.id.ivCamera)
-			// 撮影された画像をImageViewに設定。
-//			ivCamera.setImageBitmap(bitmap)
-			// フィールドの画像URIをImageViewに設定。
-			ivCamera.setImageURI(_imageUri)
-		}
 	}
 
 	/**
@@ -75,6 +67,25 @@ class MainActivity : AppCompatActivity() {
 		// Extra情報として_imageUriを設定。
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, _imageUri)
 		// アクティビティを起動。
-		startActivityForResult(intent, 200)
+		_cameraLauncher.launch(intent)
+	}
+
+	/**
+	 * Cameraアクティビティから戻ってきたときの処理が記述されたコールバッククラス。
+	 */
+	private inner class ActivityResultCallbackFromCamera : ActivityResultCallback<ActivityResult> {
+		override fun onActivityResult(result: ActivityResult?) {
+			// カメラアプリからの戻りでかつ撮影成功の場合
+			if(result?.resultCode == RESULT_OK) {
+				// 撮影された画像のビットマップデータを取得。
+//				val bitmap = result.data?.getParcelableExtra<Bitmap>("data")
+				// 画像を表示するImageViewを取得。
+				val ivCamera = findViewById<ImageView>(R.id.ivCamera)
+				// 撮影された画像をImageViewに設定。
+//				ivCamera.setImageBitmap(bitmap)
+				// フィールドの画像URIをImageViewに設定。
+				ivCamera.setImageURI(_imageUri)
+			}
+		}
 	}
 }
