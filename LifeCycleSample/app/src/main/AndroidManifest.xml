@@ -9,8 +9,12 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
 		android:theme="@style/Theme.LifeCycleSample">
-		<activity android:name=".SubActivity"></activity>
-		<activity android:name=".MainActivity">
+		<activity
+			android:name=".SubActivity"
+			android:exported="false" />
+		<activity
+			android:name=".MainActivity"
+			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
