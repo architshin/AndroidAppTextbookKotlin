@@ -29,7 +29,7 @@ class MenuThanksFragment : Fragment() {
 		// 親クラスのonCreate()の呼び出し。
 		super.onCreate(savedInstanceState)
 		// フラグメントマネージャーからメニューリストフラグメントを取得。
-		val menuListFragment = fragmentManager?.findFragmentById(R.id.fragmentMenuList)
+		val menuListFragment = parentFragmentManager.findFragmentById(R.id.fragmentMenuList)
 		// メニューリストフラグメントがnull、つまり存在しないなら…
 		if(menuListFragment == null) {
 			// 画面判定フラグを通常画面とする。
@@ -83,11 +83,11 @@ class MenuThanksFragment : Fragment() {
 			// 大画面の場合…
 			if(_isLayoutXLarge) {
 				// フラグメントトランザクションの開始。
-				val transaction = fragmentManager?.beginTransaction()
+				val transaction = parentFragmentManager.beginTransaction()
 				// 自分自身を削除。
-				transaction?.remove(this@MenuThanksFragment)
+				transaction.remove(this@MenuThanksFragment)
 				// フラグメントトランザクションのコミット。
-				transaction?.commit()
+				transaction.commit()
 			}
 			// 通常画面の場合…
 			else {

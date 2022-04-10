@@ -83,9 +83,9 @@ class MenuListFragment : Fragment() {
 		return view
 	}
 
-	override fun onActivityCreated(savedInstanceState: Bundle?) {
+	override fun onViewStateRestored(savedInstanceState: Bundle?) {
 		// 親クラスのメソッド呼び出し。
-		super.onActivityCreated(savedInstanceState)
+		super.onViewStateRestored(savedInstanceState)
 		// 自分が所属するアクティビティからmenuThanksFrameを取得。
 		val menuThanksFrame = activity?.findViewById<View>(R.id.menuThanksFrame)
 		// menuThanksFrameがnull、つまり存在しないなら…
@@ -115,15 +115,15 @@ class MenuListFragment : Fragment() {
 			// 大画面の場合。
 			if(_isLayoutXLarge) {
 				// フラグメントトランザクションの開始。
-				val transaction = fragmentManager?.beginTransaction()
+				val transaction = parentFragmentManager.beginTransaction()
 				// 注文完了フラグメントを生成。
 				val menuThanksFragment = MenuThanksFragment()
 				// 引き継ぎデータを注文完了フラグメントに格納。
 				menuThanksFragment.arguments = bundle
 				// 生成した注文完了フラグメントをmenuThanksFrameレイアウト部品に追加(置き換え)。
-				transaction?.replace(R.id.menuThanksFrame, menuThanksFragment)
+				transaction.replace(R.id.menuThanksFrame, menuThanksFragment)
 				// フラグメントトランザクションのコミット。
-				transaction?.commit()
+				transaction.commit()
 			}
 			// 通常画面の場合。
 			else {
