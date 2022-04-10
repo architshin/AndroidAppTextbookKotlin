@@ -10,47 +10,67 @@
 
 ファイル名=activity_menu_thanks.xml
 -->
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
+	tools:context=".MenuThanksActivity">
 
 	<TextView
-		android:layout_width="match_parent"
+		android:id="@+id/tvThxTitle"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="10dp"
-		android:gravity="center"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
 		android:text="@string/tv_thx_title"
-		android:textSize="25sp"/>
+		android:textSize="24sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
-		android:layout_width="match_parent"
+		android:id="@+id/tvThxDesc"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="10dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
 		android:text="@string/tv_thx_desc"
-		android:textSize="15sp"/>
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvThxTitle" />
 
-	<LinearLayout
-		android:layout_width="match_parent"
+	<TextView
+		android:id="@+id/tvMenuName"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvThxDesc" />
 
-		<TextView
-			android:id="@+id/tvMenuName"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"/>
-
-		<TextView
-			android:id="@+id/tvMenuPrice"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-	</LinearLayout>
+	<TextView
+		android:id="@+id/tvMenuPrice"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvThxDesc" />
 
 	<Button
-		android:layout_width="match_parent"
+		android:id="@+id/btThxBack"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
 		android:onClick="onBackButtonClick"
-		android:text="@string/bt_thx_back"/>
-</LinearLayout>
+		android:text="@string/bt_thx_back"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvMenuName" />
+</androidx.constraintlayout.widget.ConstraintLayout>
