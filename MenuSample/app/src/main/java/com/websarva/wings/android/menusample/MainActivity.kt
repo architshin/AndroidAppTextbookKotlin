@@ -1,6 +1,7 @@
 package com.websarva.wings.android.menusample
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.Menu
@@ -10,7 +11,6 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.SimpleAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 
 /**
  * 『Androidアプリ開発の教科書Kotlin』
