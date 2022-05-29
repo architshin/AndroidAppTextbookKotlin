@@ -8,53 +8,91 @@
 
 ファイル名=activity_main.xml
 -->
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
+	tools:context=".MainActivity">
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/glLvCocktail"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_percent="0.4" />
 
 	<ListView
 		android:id="@+id/lvCocktail"
-		android:layout_width="match_parent"
+		android:layout_width="0dp"
 		android:layout_height="0dp"
-		android:layout_marginBottom="10dp"
-		android:layout_weight="0.6"
-		android:entries="@array/lv_cocktaillist"/>
+		android:entries="@array/lv_cocktaillist"
+		app:layout_constraintBottom_toTopOf="@+id/glLvCocktail"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
+		android:id="@+id/tvLbName"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
 		android:text="@string/tv_lb_name"
-		android:textSize="20sp"/>
+		android:textSize="20sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/glLvCocktail" />
 
 	<TextView
 		android:id="@+id/tvCocktailName"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
 		android:text="@string/tv_name"
-		android:textSize="20sp"/>
+		android:textSize="20sp"
+		app:layout_constraintStart_toEndOf="@+id/tvLbName"
+		app:layout_constraintTop_toTopOf="@+id/glLvCocktail" />
 
 	<TextView
+		android:id="@+id/tvLbNote"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="5dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
 		android:text="@string/tv_lb_note"
-		android:textSize="20sp"/>
-
-	<EditText
-		android:id="@+id/etNote"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="0.4"
-		android:gravity="top"
-		android:inputType="textMultiLine"/>
+		android:textSize="20sp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvLbName" />
 
 	<Button
 		android:id="@+id/btnSave"
-		android:layout_width="match_parent"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="8dp"
 		android:enabled="false"
 		android:onClick="onSaveButtonClick"
-		android:text="@string/btn_save"/>
-</LinearLayout>
+		android:text="@string/btn_save"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent" />
+
+	<EditText
+		android:id="@+id/etNote"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:layout_marginBottom="8dp"
+		android:ems="10"
+		android:gravity="start|top"
+		android:inputType="textMultiLine"
+		app:layout_constraintBottom_toTopOf="@+id/btnSave"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvLbNote" />
+</androidx.constraintlayout.widget.ConstraintLayout>
