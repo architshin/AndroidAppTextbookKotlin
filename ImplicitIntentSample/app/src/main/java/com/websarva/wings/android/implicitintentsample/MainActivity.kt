@@ -1,10 +1,8 @@
 package com.websarva.wings.android.implicitintentsample
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -54,15 +52,12 @@ class MainActivity : AppCompatActivity() {
 		_fusedLocationClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
 		// LocationRequestオブジェクトを生成。
 		_locationRequest = LocationRequest.create()
-		// LocationRequestオブジェクトがnullでないなら…
-		_locationRequest?.let {
-			// 位置情報の最短更新間隔を設定。
-			it.interval = 5000
-			// 位置情報の最短更新間隔を設定。
-			it.fastestInterval = 1000
-			// 位置情報の取得精度を設定。
-			it.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-		}
+		// 位置情報の最短更新間隔を設定。
+		_locationRequest.interval = 5000
+		// 位置情報の最短更新間隔を設定。
+		_locationRequest.fastestInterval = 1000
+		// 位置情報の取得精度を設定。
+		_locationRequest.priority = Priority.PRIORITY_HIGH_ACCURACY
 		// 位置情報が変更された時の処理を行うコールバックオブジェクトを生成。
 		_onUpdateLocation = OnUpdateLocation()
 	}
@@ -90,6 +85,7 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 		// ACCESS_FINE_LOCATIONに対するパーミションダイアログでかつ許可を選択したなら…
 		if(requestCode == 1000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 			// 再度ACCESS_FINE_LOCATIONの許可が下りていないかどうかのチェックをし、降りていないなら処理を中止。
@@ -138,22 +134,20 @@ class MainActivity : AppCompatActivity() {
 	 * 位置情報が変更された時の処理を行うコールバッククラス。
 	 */
 	private inner class OnUpdateLocation : LocationCallback() {
-		override fun onLocationResult(locationResult: LocationResult?) {
-			locationResult?.let {
-				// 直近の位置情報を取得。
-				val location = it.lastLocation
-				location?.let {
-					// locationオブジェクトから緯度を取得。
-					_latitude = it.latitude
-					// locationオブジェクトから経度を取得。
-					_longitude = it.longitude
-					// 取得した緯度をTextViewに表示。
-					val tvLatitude = findViewById<TextView>(R.id.tvLatitude)
-					tvLatitude.text = _latitude.toString()
-					// 取得した経度をTextViewに表示。
-					val tvLongitude = findViewById<TextView>(R.id.tvLongitude)
-					tvLongitude.text = _longitude.toString()
-				}
+		override fun onLocationResult(locationResult: LocationResult) {
+			// 直近の位置情報を取得。
+			val location = locationResult.lastLocation
+			location?.let {
+				// locationオブジェクトから緯度を取得。
+				_latitude = it.latitude
+				// locationオブジェクトから経度を取得。
+				_longitude = it.longitude
+				// 取得した緯度をTextViewに表示。
+				val tvLatitude = findViewById<TextView>(R.id.tvLatitude)
+				tvLatitude.text = _latitude.toString()
+				// 取得した経度をTextViewに表示。
+				val tvLongitude = findViewById<TextView>(R.id.tvLongitude)
+				tvLongitude.text = _longitude.toString()
 			}
 		}
 	}
