@@ -26,14 +26,13 @@ import java.util.*
  */
 class MainActivity : AppCompatActivity() {
 	/**
-	 * 保存された画像のURI。
-	 */
-	private var _imageUri: Uri? = null
-
-	/**
 	 * Cameraアクティビティを起動するためのランチャーオブジェクト。
 	 */
 	private val _cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), ActivityResultCallbackFromCamera())
+	/**
+	 * 保存された画像のURI。
+	 */
+	private var _imageUri: Uri? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -62,6 +61,7 @@ class MainActivity : AppCompatActivity() {
 
 		// ContentResolverを使ってURIオブジェクトを生成。
 		_imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+
 		// Intentオブジェクトを生成。
 		val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 		// Extra情報として_imageUriを設定。
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 	 */
 	private inner class ActivityResultCallbackFromCamera : ActivityResultCallback<ActivityResult> {
 		override fun onActivityResult(result: ActivityResult?) {
-			// カメラアプリからの戻りでかつ撮影成功の場合
+			// カメラアプリで撮影成功の場合
 			if(result?.resultCode == RESULT_OK) {
 				// 撮影された画像のビットマップデータを取得。
 //				val bitmap = result.data?.getParcelableExtra<Bitmap>("data")
