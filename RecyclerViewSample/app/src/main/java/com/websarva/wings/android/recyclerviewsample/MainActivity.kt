@@ -35,25 +35,25 @@ class MainActivity : AppCompatActivity() {
 		toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY)
 
 		// RecyclerViewを取得。
-		val lvMenu = findViewById<RecyclerView>(R.id.lvMenu)
+		val rvMenu = findViewById<RecyclerView>(R.id.rvMenu)
 		// LinearLayoutManagerオブジェクトを生成。
 		val layout = LinearLayoutManager(this@MainActivity)
 		// 以下は他の2種のレイアウトマネージャー。
 //		val layout = GridLayoutManager(applicationContext, 5)
 //		val layout = StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL)
 		// RecyclerViewにレイアウトマネージャーとしてLinearLayoutManagerを設定。
-		lvMenu.layoutManager = layout
+		rvMenu.layoutManager = layout
 		// 定食メニューリストデータを生成。
 		val menuList = createTeishokuList()
 		// アダプタオブジェクトを生成。
 		val adapter = RecyclerListAdapter(menuList)
 		// RecyclerViewにアダプタオブジェクトを設定。
-		lvMenu.adapter = adapter
+		rvMenu.adapter = adapter
 
 		// 区切り専用のオブジェクトを生成。
 		val decorator = DividerItemDecoration(this@MainActivity, layout.orientation)
 		// RecyclerViewに区切り線オブジェクトを設定。
-		lvMenu.addItemDecoration(decorator)
+		rvMenu.addItemDecoration(decorator)
 	}
 
 	/**
