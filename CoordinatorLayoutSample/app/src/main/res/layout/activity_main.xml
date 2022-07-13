@@ -55,5 +55,6 @@
 		android:layout_margin="20dp"
 		app:layout_anchor="@id/appbar"
 		app:layout_anchorGravity="bottom|end"
-		app:srcCompat="@android:drawable/ic_dialog_email"/>
+		app:srcCompat="@android:drawable/ic_dialog_email"
+		android:contentDescription="@string/fab_desc"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
