@@ -1,7 +1,6 @@
 package com.websarva.wings.android.asyncsample
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -11,7 +10,6 @@ import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.HandlerCompat
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
@@ -19,6 +17,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.URL
+import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 
 /**
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 		 * お天気APIにアクセスすするためのAPI Key。
 		 * ※※※※※この値は各自のものに書き換える!!※※※※※
 		 */
-		private const val APP_ID = ""
+		private const val APP_ID = "xxxxxxxxxxx"
 	}
 
 	/**
@@ -100,64 +99,91 @@ class MainActivity : AppCompatActivity() {
 	 */
 	@UiThread
 	private fun receiveWeatherInfo(urlFull: String) {
-		val handler = HandlerCompat.createAsync(mainLooper)
-		val backgroundReceiver = WeatherInfoBackgroundReceiver(handler, urlFull)
+		val backgroundReceiver = WeatherInfoBackgroundReceiver(urlFull)
 		val executeService = Executors.newSingleThreadExecutor()
-		executeService.submit(backgroundReceiver)
+		val future = executeService.submit(backgroundReceiver)
+		val result = future.get()
+		showWeatherInfo(result)
+	}
+
+	/**
+	 * 取得したお天気情報JSON文字列を解析の上、画面に表示させるメソッド。
+	 *
+	 * @param result 取得したお天気情報JSON文字列。
+	 */
+	@UiThread
+	private fun showWeatherInfo(result: String) {
+		// ルートJSONオブジェクトを生成。
+		val rootJSON = JSONObject(result)
+		// 都市名文字列を取得。
+		val cityName = rootJSON.getString("name")
+		// 緯度経度情報JSONオブジェクトを取得。
+		val coordJSON = rootJSON.getJSONObject("coord")
+		// 緯度情報文字列を取得。
+		val latitude = coordJSON.getString("lat")
+		// 経度情報文字列を取得。
+		val longitude = coordJSON.getString("lon")
+		// 天気情報JSON配列オブジェクトを取得。
+		val weatherJSONArray = rootJSON.getJSONArray("weather")
+		// 現在の天気情報JSONオブジェクトを取得。
+		val weatherJSON = weatherJSONArray.getJSONObject(0)
+		// 現在の天気情報文字列を取得。
+		val weather = weatherJSON.getString("description")
+		// 画面に表示する「〇〇の天気」文字列を生成。
+		val telop = "${cityName}の天気"
+		// 天気の詳細情報を表示する文字列を生成。
+		val desc = "現在は${weather}です。\n緯度は${latitude}度で経度は${longitude}度です。"
+		// 天気情報を表示するTextViewを取得。
+		val tvWeatherTelop = findViewById<TextView>(R.id.tvWeatherTelop)
+		val tvWeatherDesc = findViewById<TextView>(R.id.tvWeatherDesc)
+		// 天気情報を表示。
+		tvWeatherTelop.text = telop
+		tvWeatherDesc.text = desc
 	}
 
 	/**
 	 * 非同期でお天気情報APIにアクセスするためのクラス。
 	 *
-	 * @param handler ハンドラオブジェクト。
 	 * @param url お天気情報を取得するURL。
 	 */
-	private inner class WeatherInfoBackgroundReceiver(handler: Handler, url: String): Runnable {
-		/**
-		 * ハンドラオブジェクト。
-		 */
-		private val _handler = handler
+	private inner class WeatherInfoBackgroundReceiver(url: String): Callable<String> {
 		/**
 		 * お天気情報を取得するURL。
 		 */
 		private val _url = url
 
 		@WorkerThread
-		override fun run() {
+		override fun call(): String {
 			// 天気情報サービスから取得したJSON文字列。天気情報が格納されている。
 			var result = ""
 			// URLオブジェクトを生成。
 			val url = URL(_url)
 			// URLオブジェクトからHttpURLConnectionオブジェクトを取得。
-			val con = url.openConnection() as? HttpURLConnection
-			// conがnullじゃないならば…
-			con?.let {
-				try {
-					// 接続に使ってもよい時間を設定。
-					it.connectTimeout = 1000
-					// データ取得に使ってもよい時間。
-					it.readTimeout = 1000
-					// HTTP接続メソッドをGETに設定。
-					it.requestMethod = "GET"
-					// 接続。
-					it.connect()
-					// HttpURLConnectionオブジェクトからレスポンスデータを取得。
-					val stream = it.inputStream
-					// レスポンスデータであるInputStreamオブジェクトを文字列に変換。
-					result = is2String(stream)
-					// InputStreamオブジェクトを解放。
-					stream.close()
-//					result = is2String(it.inputStream)
-//					it.inputStream.close()
-				}
-				catch(ex: SocketTimeoutException) {
-					Log.w(DEBUG_TAG, "通信タイムアウト", ex)
-				}
-				// HttpURLConnectionオブジェクトを解放。
-				it.disconnect()
+			val con = url.openConnection() as HttpURLConnection
+			// 接続に使ってもよい時間を設定。
+			con.connectTimeout = 1000
+			// データ取得に使ってもよい時間。
+			con.readTimeout = 1000
+			// HTTP接続メソッドをGETに設定。
+			con.requestMethod = "GET"
+			try {
+				// 接続。
+				con.connect()
+				// HttpURLConnectionオブジェクトからレスポンスデータを取得。
+				val stream = con.inputStream
+				// レスポンスデータであるInputStreamオブジェクトを文字列に変換。
+				result = is2String(stream)
+				// InputStreamオブジェクトを解放。
+				stream.close()
+//				result = is2String(con.inputStream)
+//				con.inputStream.close()
 			}
-			val postExecutor = WeatherInfoPostExecutor(result)
-			_handler.post(postExecutor)
+			catch(ex: SocketTimeoutException) {
+				Log.w(DEBUG_TAG, "通信タイムアウト", ex)
+			}
+			// HttpURLConnectionオブジェクトを解放。
+			con.disconnect()
+			return result
 		}
 
 		/**
@@ -176,48 +202,6 @@ class MainActivity : AppCompatActivity() {
 			}
 			reader.close()
 			return sb.toString()
-		}
-	}
-
-	/**
-	 * 非同期でお天気情報を取得した後にUIスレッドでその情報を表示するためのクラス。
-	 *
-	 * @param result Web APIから取得したお天気情報JSON文字列。
-	 */
-	private inner class WeatherInfoPostExecutor(result: String): Runnable {
-		/**
-		 * 取得したお天気情報JSON文字列。
-		 */
-		private val _result = result
-
-		@UiThread
-		override fun run() {
-			// ルートJSONオブジェクトを生成。
-			val rootJSON = JSONObject(_result)
-			// 都市名文字列を取得。
-			val cityName = rootJSON.getString("name")
-			// 緯度経度情報JSONオブジェクトを取得。
-			val coordJSON = rootJSON.getJSONObject("coord")
-			// 緯度情報文字列を取得。
-			val latitude = coordJSON.getString("lat")
-			// 経度情報文字列を取得。
-			val longitude = coordJSON.getString("lon")
-			// 天気情報JSON配列オブジェクトを取得。
-			val weatherJSONArray = rootJSON.getJSONArray("weather")
-			// 現在の天気情報JSONオブジェクトを取得。
-			val weatherJSON = weatherJSONArray.getJSONObject(0)
-			// 現在の天気情報文字列を取得。
-			val weather = weatherJSON.getString("description")
-			// 画面に表示する「〇〇の天気」文字列を生成。
-			val telop = "${cityName}の天気"
-			// 天気の詳細情報を表示する文字列を生成。
-			val desc = "現在は${weather}です。\n緯度は${latitude}度で経度は${longitude}度です。"
-			// 天気情報を表示するTextViewを取得。
-			val tvWeatherTelop = findViewById<TextView>(R.id.tvWeatherTelop)
-			val tvWeatherDesc = findViewById<TextView>(R.id.tvWeatherDesc)
-			// 天気情報を表示。
-			tvWeatherTelop.text = telop
-			tvWeatherDesc.text = desc
 		}
 	}
 
