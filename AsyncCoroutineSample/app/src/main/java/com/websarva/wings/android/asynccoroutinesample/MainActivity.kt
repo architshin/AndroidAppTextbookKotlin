@@ -25,7 +25,7 @@ import java.net.URL
 /**
  * 『Androidアプリ開発の教科書Kotlin』
  * 第11章
- * Web API連携サンプルコルーチン版
+ * Web API連携サンプルコ ルーチン版
  *
  * アクティビティクラス。
  *
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 		 * お天気APIにアクセスすするためのAPI Key。
 		 * ※※※※※この値は各自のものに書き換える!!※※※※※
 		 */
-		private const val APP_ID = ""
+		private const val APP_ID = "xxxxxxxxxxx"
 	}
 
 	/**
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
 	private fun receiveWeatherInfo(urlFull: String) {
 		lifecycleScope.launch {
 			val result = weatherInfoBackgroundRunner(urlFull)
-			weatherInfoPostRunner(result)
+			showWeatherInfo(result)
 		}
 	}
 
@@ -120,38 +120,40 @@ class MainActivity : AppCompatActivity() {
 			// URLオブジェクトを生成。
 			val url = URL(url)
 			// URLオブジェクトからHttpURLConnectionオブジェクトを取得。
-			val con = url.openConnection() as? HttpURLConnection
-			// conがnullじゃないならば…
-			con?.let {
-				try {
-					// 接続に使ってもよい時間を設定。
-					it.connectTimeout = 1000
-					// データ取得に使ってもよい時間。
-					it.readTimeout = 1000
-					// HTTP接続メソッドをGETに設定。
-					it.requestMethod = "GET"
-					// 接続。
-					it.connect()
-					// HttpURLConnectionオブジェクトからレスポンスデータを取得。
-					val stream = it.inputStream
-					// レスポンスデータであるInputStreamオブジェクトを文字列に変換。
-					result = is2String(stream)
-					// InputStreamオブジェクトを解放。
-					stream.close()
-				}
-				catch(ex: SocketTimeoutException) {
-					Log.w(DEBUG_TAG, "通信タイムアウト", ex)
-				}
-				// HttpURLConnectionオブジェクトを解放。
-				it.disconnect()
+			val con = url.openConnection() as HttpURLConnection
+			// 接続に使ってもよい時間を設定。
+			con.connectTimeout = 1000
+			// データ取得に使ってもよい時間。
+			con.readTimeout = 1000
+			// HTTP接続メソッドをGETに設定。
+			con.requestMethod = "GET"
+			try {
+				// 接続。
+				con.connect()
+				// HttpURLConnectionオブジェクトからレスポンスデータを取得。
+				val stream = con.inputStream
+				// レスポンスデータであるInputStreamオブジェクトを文字列に変換。
+				result = is2String(stream)
+				// InputStreamオブジェクトを解放。
+				stream.close()
 			}
+			catch(ex: SocketTimeoutException) {
+				Log.w(DEBUG_TAG, "通信タイムアウト", ex)
+			}
+			// HttpURLConnectionオブジェクトを解放。
+			con.disconnect()
 			result
 		}
 		return returnVal
 	}
 
+	/**
+	 * 取得したお天気情報JSON文字列を解析の上、画面に表示させるメソッド。
+	 *
+	 * @param result 取得したお天気情報JSON文字列。
+	 */
 	@UiThread
-	private fun weatherInfoPostRunner(result: String) {
+	private fun showWeatherInfo(result: String) {
 		// ルートJSONオブジェクトを生成。
 		val rootJSON = JSONObject(result)
 		// 都市名文字列を取得。
