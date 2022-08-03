@@ -1,14 +1,11 @@
 package com.websarva.wings.android.fragmentsample
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.SimpleAdapter
+import androidx.fragment.app.Fragment
 
 /**
  * 『Androidアプリ開発の教科書Kotlin』
@@ -19,17 +16,10 @@ import android.widget.SimpleAdapter
  *
  * @author Shinzo SAITO
  */
-class MenuListFragment : Fragment() {
-	/**
-	 * 大画面かどうかの判定フラグ。
-	 * trueが大画面、falseが通常画面。
-	 * 判定ロジックは同一画面に注文完了表示用フレームレイアウトが存在するかで行う。
-	 */
-	private var _isLayoutXLarge = true
+class MenuListFragment : Fragment(R.layout.fragment_menu_list) {
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		// フラグメントで表示する画面をXMLファイルからインフレートする。
-		val view = inflater.inflate(R.layout.fragment_menu_list, container, false)
 		// 画面部品ListViewを取得
 		val lvMenu = view.findViewById<ListView>(R.id.lvMenu)
 
@@ -62,6 +52,10 @@ class MenuListFragment : Fragment() {
 		menuList.add(menu)
 		menu = mutableMapOf("name" to "青椒肉絲定食", "price" to "900円")
 		menuList.add(menu)
+		menu = mutableMapOf("name" to "八宝菜定食", "price" to "800円")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "酢豚定食", "price" to "850円")
+		menuList.add(menu)
 		menu = mutableMapOf("name" to "焼き魚定食", "price" to "850円")
 		menuList.add(menu)
 		menu = mutableMapOf("name" to "焼肉定食", "price" to "950円")
@@ -78,21 +72,6 @@ class MenuListFragment : Fragment() {
 
 		// リスナの登録。
 		lvMenu.onItemClickListener = ListItemClickListener()
-
-		// インフレートされた画面を戻り値として返す。
-		return view
-	}
-
-	override fun onViewStateRestored(savedInstanceState: Bundle?) {
-		// 親クラスのメソッド呼び出し。
-		super.onViewStateRestored(savedInstanceState)
-		// 自分が所属するアクティビティからmenuThanksFrameを取得。
-		val menuThanksFrame = activity?.findViewById<View>(R.id.menuThanksFrame)
-		// menuThanksFrameがnull、つまり存在しないなら…
-		if(menuThanksFrame == null) {
-			// 画面判定フラグを通常画面とする。
-			_isLayoutXLarge = false
-		}
 	}
 
 	/**
@@ -112,27 +91,28 @@ class MenuListFragment : Fragment() {
 			bundle.putString("menuName", menuName)
 			bundle.putString("menuPrice", menuPrice)
 
-			// 大画面の場合。
-			if(_isLayoutXLarge) {
+			// 自分が所属するアクティビティがnullじゃないなら…
+			activity?.let {
 				// フラグメントトランザクションの開始。
 				val transaction = parentFragmentManager.beginTransaction()
-				// 注文完了フラグメントを生成。
-				val menuThanksFragment = MenuThanksFragment()
-				// 引き継ぎデータを注文完了フラグメントに格納。
-				menuThanksFragment.arguments = bundle
-				// 生成した注文完了フラグメントをmenuThanksFrameレイアウト部品に追加(置き換え)。
-				transaction.replace(R.id.menuThanksFrame, menuThanksFragment)
+				// フラグメントトランザクションが正しく動作するように設定。
+				transaction.setReorderingAllowed(true)
+				// 自分が所属するアクティビティからfragmentMainContainerを取得。
+				val fragmentMainContainer = it.findViewById<View>(R.id.fragmentMainContainer)
+				// fragmentMainContainerが存在するなら…
+				if(fragmentMainContainer != null) {
+					// 現在の表示内容をバックスタックに追加。
+					transaction.addToBackStack("Only List")
+					// fragmentMainContainerのフラグメントを注文完了フラグメントに置き換え。
+					transaction.replace(R.id.fragmentMainContainer, MenuThanksFragment::class.java, bundle)
+				}
+				// fragmentMainContainerが存在しないなら…
+				else {
+					// fragmentThanksContainerのフラグメントを注文完了フラグメントに置き換え。
+					transaction.replace(R.id.fragmentThanksContainer, MenuThanksFragment::class.java, bundle)
+				}
 				// フラグメントトランザクションのコミット。
 				transaction.commit()
-			}
-			// 通常画面の場合。
-			else {
-				// インテントオブジェクトを生成。
-				val intent2MenuThanks = Intent(activity, MenuThanksActivity::class.java)
-				// 第2画面に送るデータを格納。ここでは、Bundleオブジェクトとしてまとめて格納。
-				intent2MenuThanks.putExtras(bundle)
-				// 第2画面の起動。
-				startActivity(intent2MenuThanks)
 			}
 		}
 	}

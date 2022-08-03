@@ -1,14 +1,14 @@
 package com.websarva.wings.android.fragmentsample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * 『Androidアプリ開発の教科書Kotlin』
  * 第9章
  * フラグメントサンプル
  *
- * 注文リスト画面のアクティビティクラス。
+ * メインアクティビティクラス。
  *
  * @author Shinzo SAITO
  */

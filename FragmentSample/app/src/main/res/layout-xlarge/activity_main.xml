@@ -10,26 +10,37 @@
 
 ファイル名=layout-xlarge/activity_menu_list.xml
 -->
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:baselineAligned="false"
-	android:orientation="horizontal">
+	android:layout_height="match_parent">
 
-	<fragment
-		android:id="@+id/fragmentMenuList"
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/glList"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.4" />
+
+	<androidx.fragment.app.FragmentContainerView
+		android:id="@+id/fragmentListContainer"
 		android:name="com.websarva.wings.android.fragmentsample.MenuListFragment"
 		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_weight="0.4"/>
+		android:layout_height="0dp"
+		android:layout_marginEnd="8dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/glList"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
-	<FrameLayout
-		android:id="@+id/menuThanksFrame"
+	<androidx.fragment.app.FragmentContainerView
+		android:id="@+id/fragmentThanksContainer"
 		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_marginRight="10dp"
-		android:layout_marginLeft="50dp"
-		android:layout_weight="0.6"
-		android:background="?android:attr/detailsElementBackground"/>
-</LinearLayout>
+		android:layout_height="0dp"
+		android:layout_marginStart="8dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="@+id/glList"
+		app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
