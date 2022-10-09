@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 			// タップされた定食名を取得。
 			val item = parent.getItemAtPosition(position) as String
 			// トーストで表示する文字列を生成。
-			val show = "あなたが選んだ定食: " + item
+			val show = "あなたが選んだ定食: $item"
 			// トーストの表示。
 			Toast.makeText(this@MainActivity, show, Toast.LENGTH_LONG).show()
 		}

@@ -24,6 +24,8 @@ res/values/string.xmlファイル
 		<item>青椒肉絲定食</item>
 		<item>八宝菜定食</item>
 		<item>酢豚定食</item>
+		<item>豚の角煮定食</item>
+		<item>焼き鳥定食</item>
 		<item>焼き魚定食</item>
 		<item>焼肉定食</item>
 	</string-array>
