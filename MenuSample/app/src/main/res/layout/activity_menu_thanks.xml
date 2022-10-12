@@ -60,4 +60,17 @@
 		android:layout_marginEnd="8dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/tvThxDesc" />
+
+	<!--	<Button-->
+	<!--		android:id="@+id/btThxBack"-->
+	<!--		android:layout_width="0dp"-->
+	<!--		android:layout_height="wrap_content"-->
+	<!--		android:layout_marginStart="8dp"-->
+	<!--		android:layout_marginTop="8dp"-->
+	<!--		android:layout_marginEnd="8dp"-->
+	<!--		android:onClick="onBackButtonClick"-->
+	<!--		android:text="@string/bt_thx_back"-->
+	<!--		app:layout_constraintEnd_toEndOf="parent"-->
+	<!--		app:layout_constraintStart_toStartOf="parent"-->
+	<!--		app:layout_constraintTop_toBottomOf="@+id/tvMenuName" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
