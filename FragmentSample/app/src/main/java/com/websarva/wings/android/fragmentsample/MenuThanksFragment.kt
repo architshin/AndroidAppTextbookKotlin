@@ -19,18 +19,15 @@ class MenuThanksFragment : Fragment(R.layout.fragment_menu_thanks) {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
-		// 引き継ぎデータ(Bundleオブジェクト)が存在すれば…
-		arguments?.let {
-			// 定食名と金額を取得。
-			val menuName = it.getString("menuName")
-			val menuPrice = it.getString("menuPrice")
-			// 定食名と金額を表示させるTextViewを取得。
-			val tvMenuName = view.findViewById<TextView>(R.id.tvMenuName)
-			val tvMenuPrice = view.findViewById<TextView>(R.id.tvMenuPrice)
-			// TextViewに定食名と金額を表示。
-			tvMenuName.text = menuName
-			tvMenuPrice.text = menuPrice
-		}
+		// 定食名と金額を取得。
+		val menuName = arguments?.getString("menuName") ?: ""
+		val menuPrice = arguments?.getString("menuPrice") ?: ""
+		// 定食名と金額を表示させるTextViewを取得。
+		val tvMenuName = view.findViewById<TextView>(R.id.tvMenuName)
+		val tvMenuPrice = view.findViewById<TextView>(R.id.tvMenuPrice)
+		// TextViewに定食名と金額を表示。
+		tvMenuName.text = menuName
+		tvMenuPrice.text = menuPrice
 
 		// 戻るボタンを取得。
 		val btBackButton = view.findViewById<Button>(R.id.btThxBack)
