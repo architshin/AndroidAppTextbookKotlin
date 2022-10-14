@@ -1,5 +1,6 @@
 package com.websarva.wings.android.asyncsample
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,7 +10,6 @@ import android.widget.SimpleAdapter
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.annotation.WorkerThread
-import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
