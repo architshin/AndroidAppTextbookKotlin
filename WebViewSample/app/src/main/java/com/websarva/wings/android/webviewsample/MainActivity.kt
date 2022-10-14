@@ -1,14 +1,13 @@
 package com.websarva.wings.android.webviewsample
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
 import android.widget.SimpleAdapter
-import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 	private var _list: MutableList<MutableMap<String, String>> = mutableListOf()
@@ -40,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 		return list
 	}
 
-	private inner class ListItemClickListener : OnItemClickListener {
+	private inner class ListItemClickListener : AdapterView.OnItemClickListener {
 		override fun onItemClick(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
 			val item = _list.get(position)
 			val url = item.get("url")
