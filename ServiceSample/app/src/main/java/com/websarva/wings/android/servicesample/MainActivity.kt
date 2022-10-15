@@ -1,10 +1,10 @@
 package com.websarva.wings.android.servicesample
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 
 /**
  * 『Androidアプリ開発の教科書Kotlin』
