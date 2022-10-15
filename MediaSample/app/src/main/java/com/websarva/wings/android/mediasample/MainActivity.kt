@@ -2,11 +2,11 @@ package com.websarva.wings.android.mediasample
 
 import android.media.MediaPlayer
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 /**
