@@ -50,14 +50,10 @@ class MainActivity : AppCompatActivity() {
 
 		// FusedLocationProviderClientオブジェクトを取得。
 		_fusedLocationClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
+		// LocationRequestのビルダーオブジェクトを生成。
+		val builder = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 5000)
 		// LocationRequestオブジェクトを生成。
-		_locationRequest = LocationRequest.create()
-		// 位置情報の最短更新間隔を設定。
-		_locationRequest.interval = 5000
-		// 位置情報の最短更新間隔を設定。
-		_locationRequest.fastestInterval = 1000
-		// 位置情報の取得精度を設定。
-		_locationRequest.priority = Priority.PRIORITY_HIGH_ACCURACY
+		_locationRequest = builder.build()
 		// 位置情報が変更された時の処理を行うコールバックオブジェクトを生成。
 		_onUpdateLocation = OnUpdateLocation()
 	}
@@ -65,10 +61,11 @@ class MainActivity : AppCompatActivity() {
 	override fun onResume() {
 		super.onResume()
 
-		// ACCESS_FINE_LOCATIONの許可が下りていないなら…
-		if(ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-			// ACCESS_FINE_LOCATIONの許可を求めるダイアログを表示。その際、リクエストコードを1000に設定。
-			val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+		// ACCESS_FINE_LOCATIONとACCESS_COARSE_LOCATIONの許可が下りていないなら…
+		if (ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+			// 許可をACCESS_FINE_LOCATIONとACCESS_COARSE_LOCATIONに設定。
+			val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+			// 許可を求めるダイアログを表示。その際、リクエストコードを1000に設定。
 			ActivityCompat.requestPermissions(this@MainActivity, permissions, 1000)
 			// onResume()メソッドを終了。
 			return
@@ -86,10 +83,10 @@ class MainActivity : AppCompatActivity() {
 
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-		// ACCESS_FINE_LOCATIONに対するパーミションダイアログでかつ許可を選択したなら…
-		if(requestCode == 1000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-			// 再度ACCESS_FINE_LOCATIONの許可が下りていないかどうかのチェックをし、降りていないなら処理を中止。
-			if(ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+		// 位置情報のパーミションダイアログでかつ許可を選択したなら…
+		if(requestCode == 1000 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+			// 再度許可が下りていないかどうかのチェックをし、降りていないなら処理を中止。
+			if(ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this@MainActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 				return
 			}
 			// 位置情報の追跡を開始。

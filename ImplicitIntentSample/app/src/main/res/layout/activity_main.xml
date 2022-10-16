@@ -44,16 +44,6 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/etSearchWord" />
 
-	<TextView
-		android:id="@+id/tvCurrentTitle"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="8dp"
-		android:text="@string/tv_current_title"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/divider" />
-
 	<View
 		android:id="@+id/divider"
 		android:layout_width="0dp"
@@ -65,6 +55,16 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/btMapSearch" />
+
+	<TextView
+		android:id="@+id/tvCurrentTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:text="@string/tv_current_title"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/divider" />
 
 	<TextView
 		android:id="@+id/tvLatitudeTitle"
