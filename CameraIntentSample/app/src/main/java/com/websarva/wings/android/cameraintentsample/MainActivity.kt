@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -78,7 +79,12 @@ class MainActivity : AppCompatActivity() {
 			// カメラアプリで撮影成功の場合
 			if(result?.resultCode == RESULT_OK) {
 				// 撮影された画像のビットマップデータを取得。
-//				val bitmap = result.data?.getParcelableExtra<Bitmap>("data")
+//				val bitmap = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//					result.data?.getParcelableExtra("data", Bitmap::class.java)
+//				}
+//				else {
+//					result.data?.getParcelableExtra<Bitmap>("data")
+//				}
 				// 画像を表示するImageViewを取得。
 				val ivCamera = findViewById<ImageView>(R.id.ivCamera)
 				// 撮影された画像をImageViewに設定。
