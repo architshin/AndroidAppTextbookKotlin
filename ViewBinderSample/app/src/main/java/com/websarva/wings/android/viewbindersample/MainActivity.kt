@@ -8,15 +8,6 @@ import android.widget.ListView
 import android.widget.SimpleAdapter
 import android.widget.TextView
 
-/**
- * 『Androidアプリ開発の教科書Kotlin』
- * 第7章 Note
- * ViewBinderサンプル
- *
- * 名前リスト画面のアクティビティクラス。
- *
- * @author Shinzo SAITO
- */
 class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -29,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 		// SimpleAdapterの第5引数toに使用する変数を用意。
 		val to = intArrayOf(R.id.tvName, R.id.imSex)
 		// SimpleAdapterを生成。
-		val adapter = SimpleAdapter(applicationContext, nameList, R.layout.row, from, to)
+		val adapter = SimpleAdapter(this@MainActivity, nameList, R.layout.row, from, to)
 		// カスタムビューバインダを登録。
 		adapter.viewBinder = CustomViewBinder()
 		// 画面部品ListViewを取得。
