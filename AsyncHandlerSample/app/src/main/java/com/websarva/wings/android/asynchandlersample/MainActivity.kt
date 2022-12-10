@@ -19,6 +19,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.URL
+import java.nio.charset.StandardCharsets
 import java.util.concurrent.Executors
 
 /**
@@ -211,7 +212,7 @@ class MainActivity : AppCompatActivity() {
 		 */
 		private fun is2String(stream: InputStream): String {
 			val sb = StringBuilder()
-			val reader = BufferedReader(InputStreamReader(stream, "UTF-8"))
+			val reader = BufferedReader(InputStreamReader(stream, StandardCharsets.UTF_8))
 			var line = reader.readLine()
 			while(line != null) {
 				sb.append(line)
