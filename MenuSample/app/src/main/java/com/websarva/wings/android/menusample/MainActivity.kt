@@ -1,6 +1,7 @@
 package com.websarva.wings.android.menusample
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
 import android.view.Menu
@@ -10,7 +11,6 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.SimpleAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 
 /**
  * 『Androidアプリ開発の教科書Kotlin』
@@ -163,6 +163,14 @@ class MainActivity : AppCompatActivity() {
 		menuList.add(menu)
 		menu = mutableMapOf("name" to "青椒肉絲定食", "price" to 900, "desc" to "ピーマンの香り豊かな青椒肉絲にサラダ、ご飯とお味噌汁が付きます。")
 		menuList.add(menu)
+		menu = mutableMapOf("name" to "八宝菜定食", "price" to 800, "desc" to "具沢山野菜と魚介のスープによるあんが絶妙な八宝菜にサラダ、ご飯とお味噌汁が付きます。")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "酢豚定食", "price" to 850, "desc" to "ごろっとお肉が目立つ酢豚にサラダ、ご飯とお味噌汁が付きます。")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "豚の角煮定食", "price" to 850, "desc" to "とろとろに煮込んだ豚の角煮にサラダ、ご飯とお味噌汁が付きます。")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "焼き鳥定食", "price" to 900, "desc" to "柚子胡椒香る焼き鳥にサラダ、ご飯とお味噌汁が付きます。")
+		menuList.add(menu)
 		menu = mutableMapOf("name" to "焼き魚定食", "price" to 850, "desc" to "鰆の塩焼きにサラダ、ご飯とお味噌汁が付きます。")
 		menuList.add(menu)
 		menu = mutableMapOf("name" to "焼肉定食", "price" to 950, "desc" to "特性たれの焼肉にサラダ、ご飯とお味噌汁が付きます。")
@@ -225,6 +233,18 @@ class MainActivity : AppCompatActivity() {
 		override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 			// タップされた行のデータを取得。SimpleAdapterでは1行分のデータはMutableMap型!
 			val item = parent.getItemAtPosition(position) as MutableMap<String, Any>
+//			// 定食名と金額を取得。Mapの値部分がAny型なのでキャストが必要。
+//			val menuName = item["name"] as String
+//			val menuPrice = item["price"] as Int
+//
+//			// インテントオブジェクトを生成。
+//			val intent2MenuThanks = Intent(this@MainActivity, MenuThanksActivity::class.java)
+//			// 第2画面に送るデータを格納。
+//			intent2MenuThanks.putExtra("menuName", menuName)
+//			// MenuThanksActivityでのデータ受け取りと合わせるために、金額にここで「円」を追加する。
+//			intent2MenuThanks.putExtra("menuPrice", "${menuPrice}円")
+//			// 第2画面の起動。
+//			startActivity(intent2MenuThanks)
 			// 注文処理。
 			order(item)
 		}

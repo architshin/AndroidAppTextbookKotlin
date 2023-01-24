@@ -12,4 +12,5 @@ res/values/string.xmlファイル
 	<string name="toolbar_title">Recycle!</string>
 	<string name="tv_menu_unit">円</string>
 	<string name="msg_header">ご注文の定食: </string>
+	<string name="fab_desc">メール送信</string>
 </resources>

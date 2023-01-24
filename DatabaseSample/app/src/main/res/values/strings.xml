@@ -19,6 +19,8 @@ res/values/string.xmlファイル
 		<item>ブルーハワイ</item>
 		<item>マイタイ</item>
 		<item>マティーニ</item>
+		<item>ブルームーン</item>
+		<item>モヒート</item>
 	</string-array>
 	<string name="tv_lb_name">選択されたカクテル:</string>
 	<string name="tv_name">未選択</string>

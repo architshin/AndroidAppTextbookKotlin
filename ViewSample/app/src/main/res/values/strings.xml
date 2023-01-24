@@ -34,5 +34,7 @@ res/values/string.xmlファイル
 		<item>ブルーハワイ</item>
 		<item>マイタイ</item>
 		<item>マティーニ</item>
+		<item>ブルームーン</item>
+		<item>モヒート</item>
 	</string-array>
 </resources>

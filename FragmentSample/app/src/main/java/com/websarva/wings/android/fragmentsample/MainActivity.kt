@@ -8,7 +8,7 @@ import android.os.Bundle
  * 第9章
  * フラグメントサンプル
  *
- * 注文リスト画面のアクティビティクラス。
+ * メインアクティビティクラス。
  *
  * @author Shinzo SAITO
  */

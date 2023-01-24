@@ -36,9 +36,9 @@
 				android:background="?attr/colorPrimary"/>
 		</com.google.android.material.appbar.CollapsingToolbarLayout>
 	</com.google.android.material.appbar.AppBarLayout>
-	
+
 	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/lvMenu"
+		android:id="@+id/rvMenu"
 		android:scrollbars="vertical"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -51,5 +51,6 @@
 		android:layout_margin="20dp"
 		app:layout_anchor="@id/appbar"
 		app:layout_anchorGravity="bottom|end"
-		app:srcCompat="@android:drawable/ic_dialog_email"/>
+		app:srcCompat="@android:drawable/ic_dialog_email"
+		android:contentDescription="@string/fab_desc"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

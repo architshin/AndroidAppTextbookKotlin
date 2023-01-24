@@ -35,25 +35,25 @@ class MainActivity : AppCompatActivity() {
 		toolbarLayout.setCollapsedTitleTextColor(Color.LTGRAY)
 
 		// RecyclerViewを取得。
-		val lvMenu = findViewById<RecyclerView>(R.id.lvMenu)
+		val rvMenu = findViewById<RecyclerView>(R.id.rvMenu)
 		// LinearLayoutManagerオブジェクトを生成。
 		val layout = LinearLayoutManager(this@MainActivity)
 		// 以下は他の2種のレイアウトマネージャー。
 //		val layout = GridLayoutManager(applicationContext, 5)
 //		val layout = StaggeredGridLayoutManager(5, StaggeredGridLayoutManager.VERTICAL)
 		// RecyclerViewにレイアウトマネージャーとしてLinearLayoutManagerを設定。
-		lvMenu.layoutManager = layout
+		rvMenu.layoutManager = layout
 		// 定食メニューリストデータを生成。
 		val menuList = createTeishokuList()
 		// アダプタオブジェクトを生成。
 		val adapter = RecyclerListAdapter(menuList)
 		// RecyclerViewにアダプタオブジェクトを設定。
-		lvMenu.adapter = adapter
+		rvMenu.adapter = adapter
 
 		// 区切り専用のオブジェクトを生成。
 		val decorator = DividerItemDecoration(this@MainActivity, layout.orientation)
 		// RecyclerViewに区切り線オブジェクトを設定。
-		lvMenu.addItemDecoration(decorator)
+		rvMenu.addItemDecoration(decorator)
 	}
 
 	/**
@@ -90,6 +90,14 @@ class MainActivity : AppCompatActivity() {
 		menu = mutableMapOf("name" to "麻婆豆腐定食", "price" to 800, "desc" to "本格四川風麻婆豆腐にサラダ、ご飯とお味噌汁が付きます。")
 		menuList.add(menu)
 		menu = mutableMapOf("name" to "青椒肉絲定食", "price" to 900, "desc" to "ピーマンの香り豊かな青椒肉絲にサラダ、ご飯とお味噌汁が付きます。")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "八宝菜定食", "price" to 800, "desc" to "具沢山野菜と魚介のスープによるあんが絶妙な八宝菜にサラダ、ご飯とお味噌汁が付きます。")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "酢豚定食", "price" to 850, "desc" to "ごろっとお肉が目立つ酢豚にサラダ、ご飯とお味噌汁が付きます。")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "豚の角煮定食", "price" to 850, "desc" to "とろとろに煮込んだ豚の角煮にサラダ、ご飯とお味噌汁が付きます。")
+		menuList.add(menu)
+		menu = mutableMapOf("name" to "焼き鳥定食", "price" to 900, "desc" to "柚子胡椒香る焼き鳥にサラダ、ご飯とお味噌汁が付きます。")
 		menuList.add(menu)
 		menu = mutableMapOf("name" to "焼き魚定食", "price" to 850, "desc" to "鰆の塩焼きにサラダ、ご飯とお味噌汁が付きます。")
 		menuList.add(menu)

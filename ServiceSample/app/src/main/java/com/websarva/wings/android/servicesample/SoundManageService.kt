@@ -4,7 +4,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
@@ -85,8 +84,6 @@ class SoundManageService : Service() {
 			// プレーヤーを解放。
 			it.release()
 		}
-		// プレーヤー用プロパティをnullに。
-		_player = null
 	}
 
 	/**
@@ -111,14 +108,15 @@ class SoundManageService : Service() {
 			// 起動先アクティビティに引き継ぎデータを格納。
 			intent.putExtra("fromNotification", true)
 			// PendingIntentオブジェクトを取得。
-			val stopServiceIntent = PendingIntent.getActivity(this@SoundManageService, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+			val stopServiceIntent = PendingIntent.getActivity(this@SoundManageService, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
 			// PendingIntentオブジェクトをビルダーに設定。
 			builder.setContentIntent(stopServiceIntent)
 			// タップされた通知メッセージを自動的に消去するように設定。
 			builder.setAutoCancel(true)
-
 			// BuilderからNotificationオブジェクトを生成。
 			val notification = builder.build()
+
 			// Notificationオブジェクトを元にサービスをフォアグラウンド化。
 			startForeground(200, notification);
 		}

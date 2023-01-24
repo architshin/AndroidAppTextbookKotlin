@@ -10,74 +10,114 @@
 
 ファイル名=activity_main.xml
 -->
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
+	tools:context=".MainActivity">
 
-	<LinearLayout
-		android:layout_width="match_parent"
+	<EditText
+		android:id="@+id/etSearchWord"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:ems="10"
+		android:inputType="text"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
-		<EditText
-			android:id="@+id/etSearchWord"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"/>
-
-		<Button
-			android:id="@+id/btMapSearch"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:onClick="onMapSearchButtonClick"
-			android:text="@string/bt_map_search"/>
-	</LinearLayout>
-
-	<LinearLayout
-		android:layout_width="match_parent"
+	<Button
+		android:id="@+id/btMapSearch"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal">
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:onClick="onMapSearchButtonClick"
+		android:text="@string/bt_map_search"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/etSearchWord" />
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="5dp"
-			android:text="@string/tv_current_title"/>
+	<View
+		android:id="@+id/divider"
+		android:layout_width="0dp"
+		android:layout_height="1dp"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="16dp"
+		android:layout_marginEnd="8dp"
+		android:background="?android:attr/listDivider"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/btMapSearch" />
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="5dp"
-			android:text="@string/tv_latitude_title"/>
+	<TextView
+		android:id="@+id/tvCurrentTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:text="@string/tv_current_title"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-		<TextView
-			android:id="@+id/tvLatitude"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="5dp"
-			android:layout_weight="0.5"
-			android:maxLines="1"/>
+	<TextView
+		android:id="@+id/tvLatitudeTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:text="@string/tv_latitude_title"
+		app:layout_constraintStart_toEndOf="@+id/tvCurrentTitle"
+		app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginRight="5dp"
-			android:text="@string/tv_longitude_title"/>
+	<TextView
+		android:id="@+id/tvLatitude"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		app:layout_constraintStart_toEndOf="@+id/tvLatitudeTitle"
+		app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-		<TextView
-			android:id="@+id/tvLongitude"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="0.5"
-			android:maxLines="1"/>
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/glLonLat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_percent="0.5" />
 
-		<Button
-			android:id="@+id/btMapShowCurrent"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:onClick="onMapShowCurrentButtonClick"
-			android:text="@string/bt_map_current"/>
-	</LinearLayout>
-</LinearLayout>
+	<TextView
+		android:id="@+id/tvLongitudeTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:text="@string/tv_longitude_title"
+		app:layout_constraintStart_toStartOf="@+id/glLonLat"
+		app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+	<TextView
+		android:id="@+id/tvLongitude"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		app:layout_constraintStart_toEndOf="@+id/tvLongitudeTitle"
+		app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+	<Button
+		android:id="@+id/btMapShowCurrent"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:layout_marginEnd="8dp"
+		android:onClick="onMapShowCurrentButtonClick"
+		android:text="@string/bt_map_current"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/tvCurrentTitle" />
+</androidx.constraintlayout.widget.ConstraintLayout>

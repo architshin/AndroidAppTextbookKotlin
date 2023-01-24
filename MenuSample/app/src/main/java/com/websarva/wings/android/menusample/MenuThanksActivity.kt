@@ -3,6 +3,7 @@ package com.websarva.wings.android.menusample
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 
 /**
@@ -49,4 +50,12 @@ class MenuThanksActivity : AppCompatActivity() {
 		}
 		return returnVal
 	}
+
+	/**
+	 * 戻るボタンをタップした時の処理。
+	 * @param view 画面部品。
+	 */
+//	fun onBackButtonClick(view: View) {
+//		finish()
+//	}
 }

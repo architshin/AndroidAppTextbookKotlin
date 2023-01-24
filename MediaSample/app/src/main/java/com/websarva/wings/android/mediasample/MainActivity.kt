@@ -2,11 +2,11 @@ package com.websarva.wings.android.mediasample
 
 import android.media.MediaPlayer
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.CompoundButton
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 /**
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 		loopSwitch.setOnCheckedChangeListener(LoopSwitchChangedListener())
 	}
 
-	override fun onDestroy() {
+	override fun onStop() {
 		// プロパティのプレーヤーがnullじゃなかったら
 		_player?.let {
 			// プレーヤーが再生中なら…
@@ -63,10 +63,8 @@ class MainActivity : AppCompatActivity() {
 			// プレーヤーを解放。
 			it.release()
 		}
-		// プレーヤー用プロパティをnullに。
-		_player = null
 		// 親クラスのメソッド呼び出し。
-		super.onDestroy()
+		super.onStop()
 	}
 
 	/**
@@ -120,6 +118,9 @@ class MainActivity : AppCompatActivity() {
 			it.seekTo(duration)
 			// 再生中でないなら…
 			if(!it.isPlaying) {
+				// 再生ボタンのラベルを「一時停止」に設定。
+				val btPlay = findViewById<Button>(R.id.btPlay)
+				btPlay.setText(R.string.bt_play_pause)
 				// 再生を開始。
 				it.start()
 			}
